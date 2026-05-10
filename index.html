@@ -1,111 +1,1762 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>108 Palms Beach Resort | Trincomalee, Sri Lanka</title>
-    <meta
-      name="description"
-      content="108 Palms Beach Resort — a quieter beachfront stay in Sampalthivu near Trincomalee, Sri Lanka. Private beach access, a new outdoor pool, breakfast included and direct enquiry rates."
-    />
-    <link rel="icon" type="image/png" href="/stivance-deploy/branding/favicon.png" />
-    <link rel="apple-touch-icon" href="/stivance-deploy/branding/favicon.png" />
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>108 Palms Beach Resort | Trincomalee, Sri Lanka</title>
+<meta name="description" content="A quieter east-coast resort in Sampalthivu near Trincomalee — private beach access, a new pool, breakfast-inclusive stays and direct enquiry rates." />
+<meta name="theme-color" content="#0a1822" />
+<link rel="icon" type="image/png" href="./assets/logos/favicon-256.png" />
 
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="108 Palms Beach Resort" />
-    <meta property="og:url" content="https://108palmsbeachresort.com/" />
-    <meta property="og:title" content="108 Palms Beach Resort | Trincomalee, Sri Lanka" />
-    <meta
-      property="og:description"
-      content="A quieter east-coast resort in Sampalthivu near Trincomalee — private beach access, a new pool, breakfast-inclusive stays and direct enquiry rates."
-    />
-    <meta property="og:image" content="/stivance-deploy/branding/og-image.jpg" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="628" />
-    <meta property="og:locale" content="en_US" />
-    <meta property="og:locale:alternate" content="cs_CZ" />
+<link rel="preload" as="image" href="./gallery/01-beach-loungers.jpg" fetchpriority="high" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<!-- Fonts per official brand manual: Cormorant Garamond (display) + Manrope (body/UI) -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-    <!-- Twitter Cards -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="108 Palms Beach Resort | Trincomalee, Sri Lanka" />
-    <meta
-      name="twitter:description"
-      content="A quieter east-coast resort in Sampalthivu near Trincomalee — private beach access, a new pool, breakfast-inclusive stays."
-    />
-    <meta name="twitter:image" content="/stivance-deploy/branding/og-image.jpg" />
+<style>
+/* =====================================================================
+   v3: 1:1 vizuální kopie originálu stivance-resort-web.vercel.app
+   + 6 přenesených změn (cursor, section indicator, accommodation, FAQ, footer, hover efekt na rezervaci)
+   ===================================================================== */
+:root {
+  /* OFICIÁLNÍ BRAND PALETA (per brand manuál v1.0/2026) */
+  --palm-green:    #1C4147;  /* PRIMÁRNÍ · HLAVNÍ */
+  --sand-gold:     #BEA883;  /* PRIMÁRNÍ · AKCENT */
+  --coral-cream:   #FBF4EA;  /* PRIMÁRNÍ · POZADÍ */
+  --deep-reef:     #0F2A2E;  /* DOPLŇKOVÉ · TMAVÉ PLOCHY */
+  --bronze-palm:   #8E7A55;  /* DOPLŇKOVÉ · TMAVÁ ZLATÁ */
+  --dune-sand:     #E8D9BC;  /* DOPLŇKOVÉ · TEPLÁ VÝPLŇ */
+  --linen:         #F4E9D5;  /* DOPLŇKOVÉ · POZADÍ SEKCÍ */
+  --sea-mist:      #6B9CA3;  /* DOPLŇKOVÉ · POUZE AKCENT */
+  --ink:           #141414;  /* DOPLŇKOVÉ · TĚLO TEXTU */
 
-    <meta name="theme-color" content="#110f11" />
+  /* SEMANTIC TOKENS — DARK THEME default */
+  --bg: var(--deep-reef);
+  --bg-elev: var(--palm-green);
+  --bg-card: #133035;
+  --text: var(--coral-cream);
+  --text-muted: rgba(251,244,234,.65);
+  --text-dim: rgba(251,244,234,.4);
+  --accent: var(--sand-gold);
+  --accent-soft: var(--bronze-palm);
+  --accent-deep: var(--palm-green);
+  --cream: var(--coral-cream);
+  --border: rgba(251,244,234,.08);
+  --border-strong: rgba(251,244,234,.18);
 
-    <!-- Google Analytics 4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BM1BN28GYH"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-BM1BN28GYH', { anonymize_ip: true });
-    </script>
+  /* TYPOGRAFIE per brand manual */
+  --serif: "Cormorant Garamond", "Playfair Display", "Times New Roman", serif;
+  --sans:  "Manrope", system-ui, -apple-system, "Helvetica", sans-serif;
 
-    <!-- Vercel Web Analytics -->
-    <script>
-      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-    </script>
-    <script defer src="/_vercel/insights/script.js"></script>
+  --easing: cubic-bezier(.2,.7,.2,1);
+  --radius: 22px;
+  --radius-lg: 34px;
+  --pad-x: clamp(16px, 4vw, 48px);
+}
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600;7..72,700&family=Source+Sans+3:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
+/* LIGHT THEME — Coral Cream pozadí + Palm Green text (per brand manuál: krémová 60%, zelená 25%, zlatá 12%) */
+html[data-theme="light"] {
+  --bg: var(--coral-cream);
+  --bg-elev: var(--linen);
+  --bg-card: var(--dune-sand);
+  --text: var(--palm-green);
+  --text-muted: rgba(28,65,71,.7);
+  --text-dim: rgba(28,65,71,.45);
+  --accent: var(--bronze-palm);
+  --accent-soft: var(--sand-gold);
+  --accent-deep: var(--palm-green);
+  --cream: var(--palm-green);
+  --border: rgba(28,65,71,.10);
+  --border-strong: rgba(28,65,71,.20);
+}
+html[data-theme="light"] body { background: var(--coral-cream); color: var(--palm-green); }
+html[data-theme="light"] .cta { background: var(--palm-green); color: var(--coral-cream); }
+html[data-theme="light"] .nav-shell { background: rgba(251,244,234,.78); }
+html[data-theme="light"] .hero-tint { background: linear-gradient(180deg, rgba(251,244,234,.3) 0%, rgba(251,244,234,.55) 50%, rgba(251,244,234,.85) 100%); }
+html[data-theme="light"] .hero-h1 { color: var(--palm-green); text-shadow: none; }
+html[data-theme="light"] .hero-eyebrow { color: rgba(28,65,71,.7); }
+html[data-theme="light"] .stat-card, html[data-theme="light"] .notice-card {
+  background: rgba(251,244,234,.7);
+  border: 1px solid var(--border-strong);
+}
+html[data-theme="light"] .stat-card .num,
+html[data-theme="light"] .notice-card li { color: var(--palm-green); }
+html[data-theme="light"] .particle {
+  background: var(--bronze-palm);
+  box-shadow: 0 0 8px rgba(142,122,85,.7);
+}
+html[data-theme="light"] .scroll-progress {
+  background: linear-gradient(90deg, var(--sand-gold), var(--bronze-palm), var(--palm-green));
+}
 
-    <!-- Schema.org LodgingBusiness -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "LodgingBusiness",
-        "name": "108 Palms Beach Resort",
-        "description": "Boutique east-coast resort in Sampalthivu near Trincomalee with private beach access, a new outdoor pool and breakfast-inclusive stays.",
-        "url": "https://108palmsbeachresort.com/",
-        "image": "https://108palmsbeachresort.com/branding/og-image.jpg",
-        "logo": "https://108palmsbeachresort.com/branding/logo-transparent.png",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "Ward No.1/25, Salli, Sampalthivu",
-          "addressLocality": "Trincomalee",
-          "addressCountry": "LK"
-        },
-        "geo": {
-          "@type": "GeoCoordinates",
-          "latitude": 8.634589,
-          "longitude": 81.223683
-        },
-        "email": "srilankaresortyt@gmail.com",
-        "amenityFeature": [
-          { "@type": "LocationFeatureSpecification", "name": "Private beach access", "value": true },
-          { "@type": "LocationFeatureSpecification", "name": "Outdoor pool", "value": true },
-          { "@type": "LocationFeatureSpecification", "name": "Breakfast included", "value": true },
-          { "@type": "LocationFeatureSpecification", "name": "Free Wi-Fi", "value": true },
-          { "@type": "LocationFeatureSpecification", "name": "Air conditioning", "value": true },
-          { "@type": "LocationFeatureSpecification", "name": "Pets allowed", "value": false }
-        ],
-        "numberOfRooms": 12,
-        "starRating": { "@type": "Rating", "ratingValue": "3" },
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "8.9",
-          "bestRating": "10",
-          "worstRating": "1",
-          "ratingCount": 280
-        },
-        "priceRange": "$$"
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  cursor: none;
+}
+@media (max-width: 900px) { body { cursor: auto; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+
+img { max-width: 100%; display: block; }
+button { font: inherit; cursor: none; }
+@media (max-width: 900px) { button, a { cursor: pointer; } }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+/* Brand typografie — škála per manuál */
+h1, h2, h3, h4 { font-family: var(--serif); font-weight: 500; letter-spacing: -.02em; margin: 0; }
+h1 { font-size: clamp(56px, 9vw, 96px);  line-height: 0.92; }   /* DISPLAY 96/0.92 */
+h2 { font-size: clamp(28px, 4.5vw, 56px); line-height: 1.05; }  /* H1 56/1.05 */
+h3 { font-size: clamp(22px, 2.8vw, 36px); line-height: 1.15; }  /* H2 36/1.15 */
+h4 { font-size: 18px; line-height: 1.25; font-weight: 600; }
+p, li, td { font-size: 15px; line-height: 1.6; }                /* BODY 15/1.6 */
+.lead { font-size: 18px; line-height: 1.55; }                   /* LEAD 18/1.55 */
+.eyebrow {
+  font-family: var(--sans);
+  font-size: 12px;
+  letter-spacing: 0.22em;                                       /* EYEBROW 12/0.22em */
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* =====================================================================
+   ORIGINÁLNÍ HERO BACKGROUND CHECKER PATTERN (placeholder grid)
+   ===================================================================== */
+.hero-checker {
+  position: absolute; inset: 0; z-index: -2;
+  background:
+    radial-gradient(ellipse 200px 200px at 8% 14%, rgba(255,255,255,.04), transparent 60%),
+    radial-gradient(ellipse 200px 200px at 24% 14%, rgba(255,255,255,.03), transparent 60%),
+    radial-gradient(ellipse 200px 200px at 40% 14%, rgba(255,255,255,.04), transparent 60%),
+    radial-gradient(ellipse 200px 200px at 56% 14%, rgba(255,255,255,.03), transparent 60%),
+    radial-gradient(ellipse 200px 200px at 72% 14%, rgba(255,255,255,.04), transparent 60%),
+    radial-gradient(ellipse 200px 200px at 88% 14%, rgba(255,255,255,.03), transparent 60%),
+    radial-gradient(ellipse 200px 200px at 16% 38%, rgba(255,255,255,.03), transparent 60%),
+    radial-gradient(ellipse 200px 200px at 48% 38%, rgba(255,255,255,.04), transparent 60%),
+    radial-gradient(ellipse 200px 200px at 80% 38%, rgba(255,255,255,.03), transparent 60%),
+    var(--bg);
+  background-size: auto;
+}
+
+/* =====================================================================
+   --- 6 přenesených změn ---
+   ===================================================================== */
+
+/* (A) CUSTOM CURSOR — bez "Reserve" badge, jen enlarging dot + trail */
+.cursor {
+  position: fixed; top: 0; left: 0;
+  width: 12px; height: 12px;
+  border: 1.5px solid var(--accent);
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 10000;
+  transition: width .25s var(--easing), height .25s var(--easing), background .2s, border-color .2s;
+  mix-blend-mode: difference;
+}
+.cursor-trail {
+  position: fixed; top: 0; left: 0;
+  width: 28px; height: 28px;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9998;
+  opacity: .35;
+  mix-blend-mode: difference;
+  transition: width .4s var(--easing), height .4s var(--easing);
+}
+.cursor.is-hover { width: 40px; height: 40px; background: rgba(201,163,107,.22); }
+@media (max-width: 900px) { .cursor, .cursor-trail { display: none; } }
+
+/* (B) STICKY VERTICAL SECTION INDICATOR (pravá strana) */
+.section-indicator {
+  position: fixed;
+  right: 22px; top: 50%;
+  transform: translateY(-50%);
+  z-index: 70;
+  display: flex; flex-direction: column; gap: 18px;
+  pointer-events: none;
+}
+.section-indicator a {
+  pointer-events: auto;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--text-dim);
+  opacity: .35;
+  transition: all .3s var(--easing);
+  position: relative;
+  text-decoration: none;
+}
+.section-indicator a::after {
+  content: attr(data-label);
+  position: absolute;
+  right: 18px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 10px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--text);
+  background: var(--bg-card);
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s, transform .25s;
+}
+.section-indicator a:hover::after { opacity: 1; transform: translateY(-50%) translateX(-4px); }
+.section-indicator a.active {
+  width: 28px;
+  border-radius: 4px;
+  background: var(--accent);
+  opacity: 1;
+}
+@media (max-width: 1100px) { .section-indicator { display: none; } }
+
+/* (C) HOVER EFEKT na "Open reservation page" — magnetic + shine + glow */
+.cta { position: relative; overflow: hidden; }
+.cta::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -120%;
+  width: 70%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,.55), transparent);
+  transform: skewX(-22deg);
+  transition: left .9s var(--easing);
+  pointer-events: none;
+}
+.cta:hover::after { left: 130%; }
+.magnetic { transition: transform .25s var(--easing); will-change: transform; }
+.cta.glow { animation: glowPulse 3.6s ease-in-out infinite; }
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201,163,107,.0), 0 4px 14px rgba(201,163,107,.25); }
+  50%      { box-shadow: 0 0 0 12px rgba(201,163,107,.0), 0 8px 24px rgba(201,163,107,.5); }
+}
+
+/* (D) ACCOMMODATION 1:1 z mého v2 (BEZ floor plans) */
+.compare-wrap {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 26px;
+  overflow-x: auto;
+  margin-bottom: 28px;
+}
+.compare {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 640px;
+  font-size: 14px;
+}
+.compare th, .compare td {
+  padding: 14px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+.compare th { color: var(--text-muted); font-weight: 500; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
+.compare td { color: var(--text); }
+.compare td.col-name { font-family: var(--serif); font-size: 16px; }
+.compare td.col-price { color: var(--accent); font-weight: 600; }
+.compare tr:last-child td { border-bottom: 0; }
+
+.villas-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+@media (max-width: 1000px) { .villas-grid { grid-template-columns: 1fr; } }
+.villa-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  transition: transform .3s var(--easing), box-shadow .3s;
+  transform-style: preserve-3d;
+  position: relative;
+  will-change: transform;
+}
+.villa-card:hover { box-shadow: 0 6px 30px rgba(0,0,0,.4); }
+.villa-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+  padding: 1px;
+  background: linear-gradient(135deg, transparent, rgba(201,163,107,.4), transparent);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  opacity: 0;
+  transition: opacity .4s;
+  pointer-events: none;
+}
+.villa-card:hover::after { opacity: 1; }
+.villa-card .photo {
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  position: relative;
+}
+.villa-card .photo img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform .8s var(--easing), clip-path 1.2s var(--easing);
+}
+.villa-card .photo .reveal-img { clip-path: inset(0 100% 0 0); }
+.villa-card .photo .reveal-img.is-visible { clip-path: inset(0 0 0 0); }
+.villa-card:hover .photo img { transform: scale(1.06); }
+.villa-card .body { padding: 26px; flex: 1; display: flex; flex-direction: column; gap: 14px; }
+.villa-card .badge {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+}
+.villa-card .desc { color: var(--text-muted); font-size: 14px; line-height: 1.55; }
+.villa-card .price { color: var(--accent); font-weight: 600; font-size: 14px; }
+.villa-card .standout {
+  display: flex; flex-wrap: wrap; gap: 6px;
+}
+.villa-card .standout span {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* (E) FAQ z mého v2: kategorie chips + expandable items */
+.faq-grid {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 60px;
+  align-items: start;
+}
+@media (max-width: 900px) { .faq-grid { grid-template-columns: 1fr; gap: 30px; } }
+.faq-cats {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px;
+}
+.faq-cats button {
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  color: var(--text-muted);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.faq-cats button.active { background: var(--accent); color: #0a1822; border-color: var(--accent); }
+.faq-list { display: flex; flex-direction: column; }
+.faq-item {
+  border-bottom: 1px solid var(--border);
+  padding: 18px 0;
+}
+.faq-item summary {
+  font-family: var(--serif);
+  font-size: 19px;
+  list-style: none;
+  cursor: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text);
+}
+@media (max-width: 900px) { .faq-item summary { cursor: pointer; } }
+.faq-item summary::after {
+  content: '+';
+  color: var(--accent);
+  font-size: 22px;
+  transition: transform .3s;
+}
+.faq-item[open] summary::after { transform: rotate(45deg); }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item p { color: var(--text-muted); font-size: 15px; line-height: 1.6; margin: 12px 0 0; }
+
+/* (F) FOOTER z mého v2 s palm sway */
+footer {
+  padding: 80px var(--pad-x) 40px;
+  position: relative;
+  overflow: hidden;
+}
+.foot-grid {
+  max-width: 1320px;
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr 1fr;
+  gap: 40px;
+  border-top: 1px solid var(--border);
+  padding-top: 40px;
+}
+@media (max-width: 900px) { .foot-grid { grid-template-columns: 1fr 1fr; gap: 30px; } }
+.foot-grid h4 { font-size: 14px; letter-spacing: .14em; text-transform: uppercase; color: var(--text-muted); font-weight: 600; font-family: var(--sans); margin-bottom: 14px; }
+.foot-grid a { display: block; font-size: 14px; color: var(--text-muted); text-decoration: none; padding: 4px 0; transition: color .2s; }
+.foot-grid a:hover { color: var(--accent); }
+.foot-bottom {
+  max-width: 1320px;
+  margin: 30px auto 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-dim);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.palm-deco {
+  position: absolute;
+  bottom: 0;
+  width: 110px;
+  height: 200px;
+  pointer-events: none;
+  opacity: .25;
+  transform-origin: bottom center;
+  animation: sway 7s ease-in-out infinite;
+}
+.palm-deco:nth-of-type(1) { left: 4%; animation-delay: 0s; }
+.palm-deco:nth-of-type(2) { right: 4%; animation-delay: -3s; transform: scaleX(-1); }
+@keyframes sway {
+  0%, 100% { transform: rotate(-2deg) translateY(0); }
+  50%      { transform: rotate(2deg) translateY(-3px); }
+}
+
+/* =====================================================================
+   v3 + 10 NOVÝCH EFEKTŮ (přechody jako top weby)
+   ===================================================================== */
+
+/* (1) SCROLL PROGRESS BAR (top) */
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent), #d4b87a, var(--accent-deep));
+  z-index: 999;
+  transition: width .15s ease-out;
+  box-shadow: 0 0 12px rgba(194,165,114,.6);
+}
+
+/* (2) AMBIENT GOLD PARTICLES — drift across background */
+.particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+.particle {
+  position: absolute;
+  width: 3px; height: 3px;
+  background: var(--accent);
+  border-radius: 50%;
+  opacity: 0;
+  filter: blur(.5px);
+  box-shadow: 0 0 8px rgba(194,165,114,.6);
+  animation: particleFloat linear infinite;
+}
+@keyframes particleFloat {
+  0%   { transform: translate3d(0, 110vh, 0); opacity: 0; }
+  10%  { opacity: .8; }
+  90%  { opacity: .4; }
+  100% { transform: translate3d(20vw, -10vh, 0); opacity: 0; }
+}
+
+/* (3) CINEMATIC HERO ZOOM-OUT (na load) — funguje na video i fallback img */
+.hero-bg video, .hero-bg img {
+  transform: scale(1.28);
+  animation: cineZoom 6s var(--easing) forwards;
+  will-change: transform;
+}
+.hero-bg video {
+  position: absolute; inset: 0;
+  width: 100%; height: 110%;
+  object-fit: cover;
+  object-position: center 40%;
+}
+@keyframes cineZoom {
+  0%   { transform: scale(1.28); }
+  100% { transform: scale(1.0); }
+}
+
+/* (4) SECTION WIPE TRANSITION (clip-path) — bonus na hero overlay */
+.wipe-up { clip-path: inset(100% 0 0 0); transition: clip-path 1.4s var(--easing); will-change: clip-path; }
+.wipe-up.is-visible { clip-path: inset(0 0 0 0); }
+.wipe-left { clip-path: inset(0 100% 0 0); transition: clip-path 1.4s var(--easing); will-change: clip-path; }
+.wipe-left.is-visible { clip-path: inset(0 0 0 0); }
+
+/* (5) GRADIENT TEXT SHIMMER on H2 (auto-loop) */
+.shimmer {
+  background: linear-gradient(110deg, var(--text) 0%, var(--text) 35%, var(--accent) 50%, var(--text) 65%, var(--text) 100%);
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: shimmerSweep 4.5s ease-in-out infinite;
+  background-position: 100% 50%;
+}
+@keyframes shimmerSweep {
+  0%, 100% { background-position: 100% 50%; }
+  50%      { background-position: 0%   50%; }
+}
+
+/* SHIMMER ON HOVER — pro VŠECHNY texty na webu */
+h1, h2, h3, h4, p, li, summary, .eyebrow, a, .nav-links a, .badge, .meta, .price, td, th {
+  background-image: linear-gradient(110deg, currentColor 0%, currentColor 35%, var(--accent) 50%, currentColor 65%, currentColor 100%);
+  background-size: 250% 100%;
+  background-position: 100% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  transition: background-position .9s var(--easing), -webkit-text-fill-color .3s, color .3s;
+}
+h1:hover, h2:hover, h3:hover, h4:hover, p:hover, li:hover, summary:hover, .eyebrow:hover, .nav-links a:hover, .badge:hover, .meta:hover, .price:hover, td:hover, th:hover {
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  background-position: 0% 50%;
+}
+/* Don't apply to text inside buttons/CTAs — they have their own treatment */
+.cta, .cta * { background: none; -webkit-text-fill-color: initial; color: inherit; }
+.lang-toggle button, .theme-toggle, .gal-arrow, .gal-arrow svg { background-image: none; -webkit-text-fill-color: initial; color: inherit; }
+.lang-toggle button.active { background: var(--accent); color: #0a1822; }
+
+/* (Compass — odebrán per feedback) */
+
+/* (7) PERSONALIZED GREETING badge under H1 */
+.greeting {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 8px 16px;
+  background: rgba(194,165,114,.10);
+  border: 1px solid rgba(194,165,114,.25);
+  border-radius: 999px;
+  font-size: 12px;
+  letter-spacing: .04em;
+  color: var(--text-muted);
+  backdrop-filter: blur(8px);
+}
+.greeting .pulse {
+  width: 6px; height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: greetingPulse 2.4s ease-in-out infinite;
+}
+@keyframes greetingPulse {
+  0%, 100% { opacity: .4; transform: scale(.8); }
+  50%      { opacity: 1;  transform: scale(1.15); }
+}
+.greeting strong { color: var(--text); font-weight: 600; }
+
+/* (8) MINI BOOKING CALENDAR PREVIEW (in hero/notice card) */
+.mini-cal {
+  margin-top: 14px;
+  background: rgba(10,24,34,.5);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+.mini-cal-head {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 8px;
+}
+.mini-cal-head strong { color: var(--accent); font-weight: 600; }
+.mini-cal-grid {
+  display: grid;
+  grid-template-columns: repeat(14, 1fr);
+  gap: 3px;
+}
+.mini-cal-day {
+  aspect-ratio: 1;
+  border-radius: 4px;
+  background: rgba(34,197,94,.18);
+  border: 1px solid rgba(34,197,94,.3);
+  font-size: 9px;
+  display: grid; place-items: center;
+  color: var(--text-muted);
+  cursor: none;
+  transition: transform .15s, background .15s;
+}
+.mini-cal-day.busy   { background: rgba(120,120,120,.22); border-color: rgba(120,120,120,.3); color: var(--text-dim); }
+.mini-cal-day.last   { background: rgba(194,165,114,.25); border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.mini-cal-day:hover  { transform: scale(1.18); background: var(--accent); color: #0a1822; border-color: var(--accent); }
+.mini-cal-legend {
+  margin-top: 6px;
+  display: flex; gap: 12px; font-size: 10px; color: var(--text-dim);
+}
+.mini-cal-legend span::before {
+  content: ''; display: inline-block;
+  width: 8px; height: 8px; border-radius: 2px;
+  margin-right: 4px; vertical-align: middle;
+}
+.mini-cal-legend .free::before { background: rgba(34,197,94,.5); }
+.mini-cal-legend .last::before { background: var(--accent); }
+.mini-cal-legend .busy::before { background: rgba(120,120,120,.5); }
+
+/* (9) MOSAIC GALLERY (varying aspect ratios) */
+.mosaic-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: 120px;
+  gap: 10px;
+}
+.mosaic-grid > .gal-tile {
+  aspect-ratio: auto;
+  border-radius: 18px;
+}
+.mosaic-grid > .gal-tile:nth-child(1)  { grid-column: span 3; grid-row: span 2; }
+.mosaic-grid > .gal-tile:nth-child(2)  { grid-column: span 3; grid-row: span 1; }
+.mosaic-grid > .gal-tile:nth-child(3)  { grid-column: span 2; grid-row: span 1; }
+.mosaic-grid > .gal-tile:nth-child(4)  { grid-column: span 1; grid-row: span 1; }
+.mosaic-grid > .gal-tile:nth-child(5)  { grid-column: span 2; grid-row: span 2; }
+.mosaic-grid > .gal-tile:nth-child(6)  { grid-column: span 2; grid-row: span 1; }
+.mosaic-grid > .gal-tile:nth-child(7)  { grid-column: span 2; grid-row: span 1; }
+.mosaic-grid > .gal-tile:nth-child(8)  { grid-column: span 4; grid-row: span 2; }
+.mosaic-grid > .gal-tile:nth-child(9)  { grid-column: span 2; grid-row: span 1; }
+@media (max-width: 900px) {
+  .mosaic-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 160px; }
+  .mosaic-grid > .gal-tile { grid-column: span 1 !important; grid-row: span 1 !important; }
+  .mosaic-grid > .gal-tile:nth-child(1) { grid-column: span 2 !important; grid-row: span 2 !important; }
+}
+
+/* (Magnetic gallery cursor — odebráno per feedback) */
+
+/* SOFT SECTION TRANSITIONS — fade-in stagger pro každou sekci */
+section { opacity: 1; }
+.section-rise > * {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity .9s var(--easing), transform .9s var(--easing);
+}
+.section-rise.is-visible > * {
+  opacity: 1; transform: none;
+}
+.section-rise > *:nth-child(1) { transition-delay: 0ms; }
+.section-rise > *:nth-child(2) { transition-delay: 120ms; }
+.section-rise > *:nth-child(3) { transition-delay: 240ms; }
+.section-rise > *:nth-child(4) { transition-delay: 360ms; }
+
+/* WORD STAGGER on H1 */
+.word-stagger .w {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(40px) rotate(2deg);
+  animation: wordIn 1s var(--easing) forwards;
+}
+@keyframes wordIn {
+  to { opacity: 1; transform: none; }
+}
+
+/* SMOOTH SECTION TRANSITIONS — softer top/bottom edges */
+section + section::before {
+  content: '';
+  display: block;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-strong), transparent);
+  margin: -1px var(--pad-x) 0;
+  max-width: 1320px;
+  margin-inline: auto;
+}
+
+/* =====================================================================
+   ORIGINÁL VIZUÁL — NAV
+   ===================================================================== */
+.nav-shell {
+  position: fixed;
+  top: 16px; left: 16px; right: 16px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 14px 10px 18px;
+  background: rgba(10, 24, 34, .55);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  max-width: 1320px;
+  margin-inline: auto;
+  transition: transform .35s var(--easing), background .3s;
+}
+.nav-shell.scrolled { transform: translateY(-2px); box-shadow: 0 6px 30px rgba(0,0,0,.4); }
+.nav-logo {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+.nav-logo img {
+  height: 48px;
+  width: auto;
+  max-width: 210px;
+  filter: drop-shadow(0 12px 28px rgba(0,0,0,.22));
+  object-fit: contain;
+  border-radius: 0;
+}
+.nav-links {
+  display: flex;
+  gap: 28px;
+  font-size: 14px;
+  letter-spacing: .02em;
+}
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-muted);
+  padding: 6px 2px;
+  position: relative;
+  transition: color .2s;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%;
+  width: 0; height: 1.5px;
+  background: var(--accent);
+  transition: width .3s var(--easing), left .3s var(--easing);
+}
+.nav-links a:hover { color: var(--text); }
+.nav-links a:hover::after { width: 100%; left: 0; }
+.nav-actions { display: flex; align-items: center; gap: 8px; }
+.lang-toggle {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 4px;
+  display: inline-flex;
+}
+.lang-toggle button {
+  background: none;
+  border: 0;
+  padding: 5px 10px;
+  border-radius: 999px;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .04em;
+}
+.lang-toggle button.active { background: var(--accent); color: #0a1822; }
+.theme-toggle {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 12px;
+  letter-spacing: .14em;
+  padding: 8px 14px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.theme-toggle svg { width: 14px; height: 14px; }
+.cta {
+  background: var(--cream);
+  color: #0a1822;
+  border: 0;
+  padding: 11px 20px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: .02em;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  transition: transform .2s var(--easing), box-shadow .2s;
+}
+.cta:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(201,163,107,.25); }
+.cta-ghost {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+}
+.cta-ghost:hover { background: var(--bg-card); }
+@media (max-width: 720px) { .nav-links { display: none; } }
+
+/* =====================================================================
+   HERO (originál look)
+   ===================================================================== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  padding: 120px var(--pad-x) 60px;
+  overflow: hidden;
+  isolation: isolate;
+}
+.hero-bg {
+  position: absolute; inset: 0; z-index: -2;
+  overflow: hidden;
+}
+.hero-bg img {
+  position: absolute; inset: 0;
+  width: 100%; height: 110%;
+  object-fit: cover;
+  object-position: center 40%;
+}
+.hero-tint {
+  position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(180deg, rgba(10,24,34,.30) 0%, rgba(10,24,34,.65) 50%, rgba(10,24,34,.92) 100%);
+}
+.hero-content {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(280px, 420px);
+  gap: 60px;
+  align-items: end;
+  min-height: calc(100vh - 180px);
+  max-width: 1320px;
+  margin-inline: auto;
+}
+@media (max-width: 1000px) { .hero-content { grid-template-columns: 1fr; } }
+
+.hero-eyebrow {
+  font-size: 12px;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: rgba(240,229,214,.7);
+  margin-bottom: 24px;
+}
+.hero-eyebrow .dot { color: var(--accent); margin: 0 8px; }
+.hero-h1 {
+  color: #fff;
+  text-shadow: 0 4px 30px rgba(0,0,0,.35);
+}
+.hero-actions {
+  margin-top: 28px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.hero-stats {
+  margin-top: 36px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.stat-card {
+  background: rgba(10,24,34,.5);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(240,229,214,.10);
+  border-radius: var(--radius);
+  padding: 22px;
+}
+.stat-card .icon { color: var(--accent); margin-bottom: 12px; display: inline-block; }
+.stat-card .icon svg { width: 22px; height: 22px; }
+.stat-card .num { font-family: var(--serif); font-size: 36px; line-height: 1; color: #fff; }
+.stat-card .lbl { font-size: 12px; color: rgba(240,229,214,.65); margin-top: 6px; }
+
+.notice-card {
+  background: rgba(10,24,34,.65);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(240,229,214,.15);
+  border-radius: var(--radius);
+  padding: 28px;
+}
+.notice-card h3 { font-size: 18px; color: #fff; margin-bottom: 4px; display: none; }
+.notice-card .eyebrow { color: var(--text-muted); margin-bottom: 18px; }
+.notice-card ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 14px; }
+.notice-card li { display: flex; gap: 10px; font-size: 14px; line-height: 1.5; color: var(--text); }
+.notice-card li::before { content: '✓'; color: var(--accent); font-weight: 600; flex: 0 0 14px; }
+.notice-card .reservation-cta {
+  margin-top: 22px;
+  padding-top: 22px;
+  border-top: 1px solid var(--border);
+}
+
+/* =====================================================================
+   SECTIONS
+   ===================================================================== */
+section { padding: 100px var(--pad-x); position: relative; }
+section .inner { max-width: 1320px; margin-inline: auto; }
+.section-hd { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-bottom: 60px; }
+@media (max-width: 900px) { .section-hd { grid-template-columns: 1fr; gap: 24px; } }
+.section-hd .eyebrow { margin-bottom: 16px; }
+.section-hd h2 { max-width: 560px; }
+.section-hd p { color: var(--text-muted); font-size: 17px; line-height: 1.55; max-width: 480px; }
+
+/* PROPERTY AT A GLANCE */
+.glance-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 24px;
+}
+@media (max-width: 900px) { .glance-grid { grid-template-columns: 1fr; } }
+.glance-main, .glance-meta {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 36px;
+}
+.glance-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+@media (max-width: 600px) { .glance-meta { grid-template-columns: 1fr; } }
+.meta-cell .eyebrow { margin-bottom: 8px; }
+.meta-cell p { margin: 0; font-size: 14px; line-height: 1.55; color: var(--text); }
+.glance-main h2 { color: var(--text-muted); }
+.glance-main p { color: var(--text-muted); font-size: 15px; line-height: 1.6; margin-top: 16px; }
+
+/* DIRECT ENQUIRY CARDS */
+.enquiry-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 16px;
+  margin-top: 40px;
+}
+@media (max-width: 900px) { .enquiry-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .enquiry-grid { grid-template-columns: 1fr; } }
+.enquiry-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+.enquiry-card .eyebrow { margin-bottom: 8px; }
+.enquiry-card strong { color: var(--text); display: block; font-family: var(--serif); font-size: 17px; font-weight: 500; line-height: 1.3; margin-bottom: 8px; }
+.enquiry-cta-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+}
+
+/* GALLERY — JEHO ORIGINÁLNÍ STYL: 3-column grid s arrows nahoře */
+.gallery-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.gallery-arrows { display: flex; gap: 8px; }
+.gal-arrow {
+  background: var(--bg-card);
+  border: 1px solid var(--border-strong);
+  width: 44px; height: 44px;
+  border-radius: 999px;
+  color: var(--text);
+  display: grid;
+  place-items: center;
+  transition: background .2s, transform .2s;
+}
+.gal-arrow:hover { background: var(--accent); color: #0a1822; }
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+}
+@media (max-width: 900px) { .gallery-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .gallery-grid { grid-template-columns: 1fr; } }
+.gal-tile {
+  aspect-ratio: 4/3;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--bg-card);
+  position: relative;
+}
+.gal-tile img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--easing); }
+.gal-tile:hover img { transform: scale(1.05); }
+
+/* REVIEWS */
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+@media (max-width: 900px) { .reviews-grid { grid-template-columns: 1fr; } }
+.review {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.review-source {
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 13px; color: var(--text-muted);
+}
+.review-source strong { color: var(--text); font-weight: 600; }
+.review blockquote {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 19px;
+  line-height: 1.4;
+  color: var(--text);
+}
+.review-author { font-size: 13px; color: var(--text-dim); }
+
+/* LOCATION (originál: ostrov mapa + 4 nearby cards — NEZMĚNĚNO) */
+.location-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+@media (max-width: 900px) { .location-block { grid-template-columns: 1fr; } }
+.location-block > div { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; }
+.location-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 30px;
+}
+@media (max-width: 600px) { .location-list { grid-template-columns: 1fr; } }
+.loc-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+}
+.loc-card .meta { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+.loc-card h3 { font-size: 19px; margin-bottom: 8px; }
+.loc-card p { font-size: 13px; line-height: 1.5; color: var(--text-muted); margin: 0; }
+
+/* FINAL CTA */
+.final-cta {
+  background: linear-gradient(135deg, var(--bg-elev), var(--bg-card));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 60px;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 40px;
+  align-items: end;
+}
+@media (max-width: 900px) { .final-cta { grid-template-columns: 1fr; padding: 32px; } }
+.final-cta h2 { max-width: 460px; }
+.final-cta-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+
+/* fade-in */
+.fade-in { opacity: 0; transform: translateY(24px); transition: opacity .8s var(--easing), transform .8s var(--easing); }
+.fade-in.is-visible { opacity: 1; transform: none; }
+
+/* lang */
+[data-lang-cz] { display: none; }
+html[data-lang="cz"] [data-lang-cz] { display: revert; }
+html[data-lang="cz"] [data-lang-en] { display: none; }
+
+/* Logo dark/light theme swap */
+html[data-theme="dark"] #brand-logo { content: url('./assets/logos/logo-nav-dark.png'); }
+html[data-theme="light"] #brand-logo { content: url('./assets/logos/logo-nav-light.png'); }
+html[data-theme="dark"] #brand-logo-foot { content: url('./assets/logos/logo-footer-dark.png'); }
+html[data-theme="light"] #brand-logo-foot { content: url('./assets/logos/logo-footer-light.png'); }
+</style>
+</head>
+<body>
+
+<!-- (1) Scroll progress bar -->
+<div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
+<!-- (2) Ambient gold particles -->
+<div class="particles" id="particles" aria-hidden="true"></div>
+
+<!-- (A) Custom cursor -->
+<div class="cursor-trail" id="cursor-trail" aria-hidden="true"></div>
+<div class="cursor" id="cursor" aria-hidden="true"></div>
+
+<!-- (B) Section indicator vpravo s JEHO sekcemi -->
+<nav class="section-indicator" aria-label="Page sections">
+  <a href="#top" data-section="top" data-label="Home" class="active"></a>
+  <a href="#gallery" data-section="gallery" data-label="Gallery"></a>
+  <a href="#accommodation" data-section="accommodation" data-label="Accommodation"></a>
+  <a href="#location" data-section="location" data-label="Location"></a>
+  <a href="#faq" data-section="faq" data-label="FAQ"></a>
+</nav>
+
+<!-- =====================================================================
+     NAV (originál look + jeho originální logo)
+     ===================================================================== -->
+<header class="nav-shell" id="nav">
+  <a href="#top" class="nav-logo" aria-label="108 Palms Beach Resort">
+    <img id="brand-logo" src="./assets/logos/logo-nav-dark.png" id="brand-logo" alt="108 Palms Beach Resort" />
+  </a>
+  <nav class="nav-links" aria-label="Primary">
+    <a href="#gallery">Gallery</a>
+    <a href="#accommodation">Accommodation</a>
+    <a href="#location">Location</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+  <div class="nav-actions">
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button id="lang-en" class="active" type="button">EN</button>
+      <button id="lang-cz" type="button">CZ</button>
+    </div>
+    <button class="theme-toggle" id="theme-toggle" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <span id="theme-label">DARK</span>
+    </button>
+    <a href="#reservation" class="cta">Reservation</a>
+  </div>
+</header>
+
+<!-- =====================================================================
+     HERO (1:1 originál)
+     ===================================================================== -->
+<section id="top" class="hero">
+  <div class="hero-bg">
+    <video autoplay muted loop playsinline preload="auto" poster="./gallery/01-beach-loungers.jpg" aria-label="108 Palms — drone footage with bird flyover">
+      <source src="./assets/videos/hero.mp4" type="video/mp4" />
+    </video>
+  </div>
+  <div class="hero-tint"></div>
+
+  <div class="hero-content">
+    <div>
+      <p class="hero-eyebrow">Ward No.1/25, Salli<span class="dot">·</span>Sampalthivu<span class="dot">·</span>Trincomalee<span class="dot">·</span>Sri Lanka</p>
+      <h1 class="hero-h1 word-stagger">
+        <span class="w" style="animation-delay:.05s">108</span>
+        <span class="w" style="animation-delay:.18s">Palms</span><br>
+        <span class="w" style="animation-delay:.34s">Beach</span>
+        <span class="w" style="animation-delay:.50s">Resort</span>
+      </h1>
+
+      <div class="hero-actions">
+        <a href="#accommodation" class="cta">Explore accommodation →</a>
+        <a href="#reservation" class="cta cta-ghost">Plan direct stay</a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-card">
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15 9 22 9.3 16.5 14 18 21 12 17 6 21 7.5 14 2 9.3 9 9 12 2"/></svg></span>
+          <div class="num"><span class="counter" data-target="8.9" data-decimal="1">0</span> / 10</div>
+          <div class="lbl">Booking score across <span class="counter" data-target="285">0</span> reviews</div>
+        </div>
+        <div class="stat-card">
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22V12M5 22V8a7 7 0 0 1 14 0v14M2 22h20"/></svg></span>
+          <div class="num"><span class="counter" data-target="11">0</span> units</div>
+          <div class="lbl">Villas and apartments across the resort</div>
+        </div>
+        <div class="stat-card">
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12c2-2 4-2 6 0s4 2 6 0 4-2 6 0M2 6c2-2 4-2 6 0s4 2 6 0 4-2 6 0M2 18c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/></svg></span>
+          <div class="num"><span class="counter" data-target="50">0</span> m</div>
+          <div class="lbl">From the resort to Sampalthivu Beach</div>
+        </div>
+      </div>
+    </div>
+
+    <aside class="notice-card">
+      <p class="eyebrow">What guests notice first</p>
+      <ul>
+        <li>Private beach access around 50 metres from the villas.</li>
+        <li>A new outdoor pool and calmer resort scale than larger beach strips.</li>
+        <li>A family-like service tone repeatedly highlighted by Booking guests.</li>
+      </ul>
+      <div class="reservation-cta">
+        <a href="#reservation" class="cta-ghost cta">Reservation →</a>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- =====================================================================
+     PROPERTY AT A GLANCE (1:1 originál)
+     ===================================================================== -->
+<section>
+  <div class="inner">
+    <div class="section-hd fade-in">
+      <div>
+        <p class="eyebrow">The property at a glance</p>
+        <h2 class="shimmer">Designed for guests who choose atmosphere over volume.</h2>
+      </div>
+      <p>108 Palms works best for couples, slower beach travellers and families who want a more secluded east-coast base instead of a denser hotel corridor.</p>
+    </div>
+
+    <div class="glance-grid fade-in">
+      <div class="glance-main">
+        <h2 class="shimmer">Designed for guests who choose atmosphere over volume.</h2>
+        <p>108 Palms works best for couples, slower beach travellers and families who want a more secluded east-coast base instead of a denser hotel corridor.</p>
+      </div>
+      <div class="glance-meta">
+        <div class="meta-cell"><p class="eyebrow">Address</p><p>Ward No.1/25, Salli – Sampalthivu, 31010 Trincomalee</p></div>
+        <div class="meta-cell"><p class="eyebrow">Guest score</p><p>8.9 / 10 · Superb · 285 reviews</p></div>
+        <div class="meta-cell"><p class="eyebrow">Top-rated category</p><p>Staff 9.6 · Comfort 9.2 · Cleanliness 9.1</p></div>
+        <div class="meta-cell"><p class="eyebrow">Good fit for</p><p>Couples, families, quieter beach stays and east-coast itineraries</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     DIRECT ENQUIRY (1:1 originál)
+     ===================================================================== -->
+<section id="reservation">
+  <div class="inner">
+    <div class="enquiry-grid fade-in">
+      <div class="enquiry-cta-card">
+        <p class="eyebrow">Direct enquiry</p>
+        <a href="#reservation" class="cta" style="margin-top:14px">Open reservation page →</a>
+      </div>
+      <div class="enquiry-card">
+        <p class="eyebrow">Room fit</p>
+        <strong>Villa vs. apartment guidance before you commit</strong>
+      </div>
+      <div class="enquiry-card">
+        <p class="eyebrow">Arrival</p>
+        <strong>Transfer timing and late check-in clarified early</strong>
+      </div>
+      <div class="enquiry-card">
+        <p class="eyebrow">Direct discount</p>
+        <strong>Booking direct usually means a small discount on the rate</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     GALLERY (1:1 originál — 3-col grid s arrows)
+     ===================================================================== -->
+<section id="gallery">
+  <div class="inner">
+    <div class="gallery-controls fade-in">
+      <p class="eyebrow">Gallery</p>
+      <div class="gallery-arrows">
+        <button class="gal-arrow" id="gal-prev" aria-label="Previous"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+        <button class="gal-arrow" id="gal-next" aria-label="Next"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+    <!-- Originál 3-col grid s arrows (žádný mosaic, žádný magnetic cursor) -->
+    <div class="gallery-grid" id="gallery-grid">
+      <div class="gal-tile"><img src="./gallery/01-beach-loungers.jpg" alt="Sunset over Sampalthivu beach"></div>
+      <div class="gal-tile"><img src="./gallery/08-pool-curved.jpg" alt="Aerial view of the resort and pool"></div>
+      <div class="gal-tile"><img src="./gallery/17-walkway-bridge.jpg" alt="Wooden bridge to the beach"></div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     REVIEWS (1:1 originál)
+     ===================================================================== -->
+<section>
+  <div class="inner">
+    <div class="reviews-grid">
+      <article class="review fade-in">
+        <div class="review-source"><strong>Booking.com</strong><span>8.9 / 10 · 285 reviews</span></div>
+        <blockquote>"Beautiful modern resort, perfect food and very friendly, smiling staff."</blockquote>
+        <span class="review-author">Josef · Czech Republic</span>
+        <a href="#" style="font-size:13px; color: var(--accent); text-decoration: none">Read all reviews →</a>
+      </article>
+      <article class="review fade-in">
+        <div class="review-source"><strong>Booking.com</strong><span>8.9 / 10 · 285 reviews</span></div>
+        <blockquote>"Amazing resort in a beautiful place. The beach is only a few metres away and the staff take care of you as if you were family."</blockquote>
+        <span class="review-author">Inka · Czech Republic</span>
+        <a href="#" style="font-size:13px; color: var(--accent); text-decoration: none">Read all reviews →</a>
+      </article>
+      <article class="review fade-in">
+        <div class="review-source"><strong>Google</strong><span>4.5 / 5 on Google Maps</span></div>
+        <blockquote>"Stunning beachfront location, clean rooms and the kind of staff warmth that keeps guests coming back."</blockquote>
+        <span class="review-author">Public Google Maps reviews</span>
+        <a href="#" style="font-size:13px; color: var(--accent); text-decoration: none">Read all reviews →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     ACCOMMODATION — (D) z mého v2, BEZ floor plans
+     ===================================================================== -->
+<section id="accommodation">
+  <div class="inner">
+    <div class="section-hd fade-in">
+      <div>
+        <p class="eyebrow">Accommodation</p>
+        <h2 class="shimmer">Three villa categories. Pick the fit, then the dates.</h2>
+      </div>
+      <p>The cards below match the currently listed Booking categories with real m², bed configurations and indicative direct-stay rates.</p>
+    </div>
+
+    <div class="compare-wrap fade-in">
+      <table class="compare" aria-label="Villa comparison">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Size</th>
+            <th>Beds</th>
+            <th>View</th>
+            <th>Max guests</th>
+            <th>From / 3 nights</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-name">Deluxe Villa (40 m²)</td>
+            <td>40 m²</td>
+            <td>1 King</td>
+            <td>Sea + garden</td>
+            <td>2 adults + 1 child</td>
+            <td class="col-price">CZK 5,488</td>
+          </tr>
+          <tr>
+            <td class="col-name">Deluxe Villa (60 m², 2 King)</td>
+            <td>60 m²</td>
+            <td>2 King</td>
+            <td>Garden</td>
+            <td>4 adults + 3 children</td>
+            <td class="col-price">CZK 8,500</td>
+          </tr>
+          <tr>
+            <td class="col-name">Deluxe Villa (60 m², interconnect)</td>
+            <td>60 m²</td>
+            <td>1 King + connect</td>
+            <td>Garden</td>
+            <td>2 + interconnecting unit</td>
+            <td class="col-price">CZK 7,200</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="villas-grid">
+      <article class="villa-card fade-in">
+        <div class="photo"><img class="reveal-img" src="./gallery/03-villa-pool-exterior.jpg" alt="Deluxe villa exterior with terracotta roof, framed by palm leaves and lawn" loading="lazy"/></div>
+        <div class="body">
+          <span class="badge">Couple-fit</span>
+          <h3>Deluxe Villa</h3>
+          <p class="desc">40 m² Deluxe Villa with one King bed and a sea+garden view. The calmest couple-oriented option.</p>
+          <p class="price">From approx. CZK 5,488 / 3 nights for 2 guests</p>
+          <div class="standout"><span>40 m²</span><span>Sea + garden</span><span>2 + 1 child</span></div>
+          <a href="#reservation" class="cta cta-ghost" style="margin-top:8px;align-self:start">View room detail →</a>
+        </div>
+      </article>
+
+      <article class="villa-card fade-in">
+        <div class="photo"><img class="reveal-img" src="./gallery/10-beach-chairs-front.jpg" alt="Villa exterior with paddleboards, palm canopy above" loading="lazy"/></div>
+        <div class="body">
+          <span class="badge">Family-fit</span>
+          <h3>Deluxe Villa (60 m², 2 King)</h3>
+          <p class="desc">60 m² across two bedrooms with garden view. Sleeps up to 4 adults + 3 children.</p>
+          <p class="price">From approx. CZK 8,500 / 3 nights (indicative)</p>
+          <div class="standout"><span>60 m²</span><span>Garden view</span><span>4 + 3 children</span></div>
+          <a href="#reservation" class="cta cta-ghost" style="margin-top:8px;align-self:start">View room detail →</a>
+        </div>
+      </article>
+
+      <article class="villa-card fade-in">
+        <div class="photo"><img class="reveal-img" src="./gallery/04-thatched-gazebo.jpg" alt="Open-air pavilion with dining table" loading="lazy"/></div>
+        <div class="body">
+          <span class="badge">Connectable</span>
+          <h3>Deluxe Villa (60 m², interconnecting)</h3>
+          <p class="desc">60 m² Deluxe Villa with one King bed and an interconnecting-room option — for couples wanting more space or two linked units.</p>
+          <p class="price">From approx. CZK 7,200 / 3 nights (indicative)</p>
+          <div class="standout"><span>60 m²</span><span>Interconnecting</span><span>Garden view</span></div>
+          <a href="#reservation" class="cta cta-ghost" style="margin-top:8px;align-self:start">View room detail →</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     LOCATION (1:1 originál — žádná moje stylizovaná SVG mapa)
+     ===================================================================== -->
+<section id="location">
+  <div class="inner">
+    <div class="section-hd fade-in">
+      <div>
+        <p class="eyebrow">Sri Lanka · island perspective</p>
+        <h2 class="shimmer">The east coast — close to Trincomalee, far from the crowd.</h2>
+      </div>
+      <p>The resort sits north of central Trincomalee with Pigeon Island, Koneswaram and Nilaveli all in easy reach.</p>
+    </div>
+
+    <div class="location-block fade-in">
+      <div>
+        <p class="eyebrow">108 Palms</p>
+        <p style="margin-top:14px; color: var(--text-muted); font-size:14px; line-height:1.6;">The quieter beachfront base in Sampalthivu with private beach access, a newer pool and a more personal service rhythm.</p>
+        <a href="https://maps.google.com/?q=108+Palms+Beach+Resort" target="_blank" rel="noopener" class="cta cta-ghost" style="margin-top:18px">Open in Google Maps →</a>
+      </div>
+      <div>
+        <p class="eyebrow">Beaches</p>
+        <p style="margin-top:14px; color: var(--text-muted); font-size:14px; line-height:1.6;">Sampalthivu beach is effectively at the resort edge, with Uppuveli around 1.5 km and Nilaveli around 5 km away.</p>
+      </div>
+    </div>
+
+    <div class="location-list">
+      <div class="loc-card">
+        <p class="meta">~ 5 km · boat from Nilaveli</p>
+        <h3>Pigeon Island</h3>
+        <p>One of the region's best-known boat outings for coral, marine life and clear-water snorkelling.</p>
+      </div>
+      <div class="loc-card">
+        <p class="meta">~ 10 km · clifftop landmark</p>
+        <h3>Koneswaram Temple</h3>
+        <p>An iconic Trincomalee viewpoint combining temple architecture and ocean exposure.</p>
+      </div>
+      <div class="loc-card">
+        <p class="meta">~ 5 km · north-coast strip</p>
+        <h3>Nilaveli Beach</h3>
+        <p>A familiar beach reference for travellers who want a second beach mood within easy reach.</p>
+      </div>
+      <div class="loc-card">
+        <p class="meta">~ 1.5 km · closest lively beach</p>
+        <h3>Uppuveli Beach</h3>
+        <p>The closest livelier beach strip — quick outings, dining detours, broader Trinco coast.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     FINAL ENQUIRY (1:1 originál + (C) hover effect na Open reservation)
+     ===================================================================== -->
+<section>
+  <div class="inner">
+    <div class="final-cta fade-in">
+      <div>
+        <p class="eyebrow">Final enquiry step</p>
+        <h2 class="shimmer">Move from inspiration to a direct stay enquiry with the real stay rules already clarified.</h2>
+        <p style="color:var(--text-muted); margin-top: 16px; max-width:520px; line-height:1.6;">When you reach the reservation step, the key details about rooms, location, seasonality and stay policies should already be clear.</p>
+        <div class="final-cta-actions">
+          <!-- (C) HOVER EFEKT: magnetic + shine + glow -->
+          <a href="#reservation" class="cta magnetic glow">Open reservation page →</a>
+          <a href="#top" class="cta cta-ghost">Back to top</a>
+        </div>
+      </div>
+      <div>
+        <p class="eyebrow">Property essentials</p>
+        <ul style="list-style:none; padding:0; margin-top:14px; display:flex; flex-direction:column; gap:14px;">
+          <li style="display:flex; gap:10px; font-size:14px; line-height:1.5; color:var(--text);"><span style="color:var(--accent)">✓</span> Ward No.1/25, Salli – Sampalthivu, 31010 Trincomalee</li>
+          <li style="display:flex; gap:10px; font-size:14px; line-height:1.5; color:var(--text);"><span style="color:var(--accent)">✓</span> Bandaranaike Intl. Airport (BIA, Colombo) approx. 6 h drive · Trincomalee Railway Station approx. 8 km</li>
+          <li style="display:flex; gap:10px; font-size:14px; line-height:1.5; color:var(--text);"><span style="color:var(--accent)">✓</span> Restaurant on site · Chinese and local cuisine · breakfast, lunch and dinner</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     FAQ — (E) z mého v2 s kategorie filtrem + JEHO 8 otázek + 6 dalších
+     ===================================================================== -->
+<section id="faq">
+  <div class="inner">
+    <div class="faq-grid">
+      <div class="fade-in">
+        <p class="eyebrow">Frequently asked questions</p>
+        <h2 class="shimmer">What guests ask us most.</h2>
+        <div class="faq-cats" role="tablist">
+          <button class="active" data-faq-cat="all">All</button>
+          <button data-faq-cat="booking">Booking</button>
+          <button data-faq-cat="stay">Stay</button>
+          <button data-faq-cat="arrival">Arrival</button>
+          <button data-faq-cat="local">Local</button>
+        </div>
+      </div>
+
+      <div class="faq-list">
+        <details class="faq-item" data-faq="booking">
+          <summary>This website won't let me book my dates — what do I do?</summary>
+          <p>Online availability typically opens about 12 months ahead, so dates further in the future may look unavailable even when we still have space. Send your dates through this page or message Dana on WhatsApp (+420 604 294 777) and we will confirm directly — direct guests usually get a small discount.</p>
+        </details>
+        <details class="faq-item" data-faq="booking">
+          <summary>How do I pay the deposit and the rest?</summary>
+          <p>We ask for a 50 percent deposit to confirm the booking — by Revolut QR code or bank transfer, whichever is easier for you. The remaining 50 percent is paid in cash on arrival (USD or LKR). The resort doesn't have a card terminal.</p>
+        </details>
+        <details class="faq-item" data-faq="stay">
+          <summary>We are a family of four — which villa fits?</summary>
+          <p>Each two-bedroom villa or apartment sleeps four (two adults plus two children, or four adults). For five or six people we usually pair two villas next to each other so the families share a terrace. Tell us how you'd like to split the group and we'll suggest the layout.</p>
+        </details>
+        <details class="faq-item" data-faq="stay">
+          <summary>Can you send more photos of a specific villa?</summary>
+          <p>Yes. We have additional photos for each villa and apartment beyond what is shown online. Mention the category in your enquiry (Superior Villa, Villa with Sea View, Beach Front Villa, Apartment) and Dana will send them by email or WhatsApp.</p>
+        </details>
+        <details class="faq-item" data-faq="arrival">
+          <summary>Can you arrange an airport transfer?</summary>
+          <p>Yes. Most guests fly into Bandaranaike Intl. Airport (BIA) in Colombo — about a 6-hour drive to the resort. Send us your flight number and arrival time and we'll arrange a fixed-price transfer.</p>
+        </details>
+        <details class="faq-item" data-faq="local">
+          <summary>Are there local tours and excursions?</summary>
+          <p>Yes. The most popular ones are Pigeon Island snorkelling, Koneswaram Temple in Trincomalee, and inland day trips to Sigiriya. We can book a driver-guide directly for you on the day.</p>
+        </details>
+        <details class="faq-item" data-faq="stay">
+          <summary>Can you accommodate a special diet at breakfast?</summary>
+          <p>Continental, vegetarian, Asian and American breakfast options are part of the regular menu. For specific diets like gluten-free, dairy-free or child-friendly portions, mention it in advance and the kitchen will prepare around it.</p>
+        </details>
+        <details class="faq-item" data-faq="local">
+          <summary>When is the best time to visit Trincomalee?</summary>
+          <p>May to September is peak — driest weather, calmest sea. Late November to April is still warm but with more variable conditions. October to early November is the most uncertain period (transition between monsoons). The east coast pattern is roughly the inverse of the south and west coast.</p>
+        </details>
+        <!-- 6 navíc, kategorizované -->
+        <details class="faq-item" data-faq="stay">
+          <summary>Is the resort family- and child-friendly?</summary>
+          <p>Yes — the larger villa sleeps up to 4 adults + 3 children. Cot can be arranged on request. Children's portions on the menu, soft sandy beach access, no street traffic on the property.</p>
+        </details>
+        <details class="faq-item" data-faq="local">
+          <summary>What language does the staff speak?</summary>
+          <p>English (good), Sinhala/Tamil (native). The owner Dana is Czech-speaking — direct communication in Czech is welcome.</p>
+        </details>
+        <details class="faq-item" data-faq="stay">
+          <summary>Are pets allowed?</summary>
+          <p>No — for the comfort of all guests, pets are not permitted on the property.</p>
+        </details>
+        <details class="faq-item" data-faq="stay">
+          <summary>Wi-Fi, power outlets and connectivity?</summary>
+          <p>Free Wi-Fi in all villas. Sri Lanka uses Type D, M and G plug shapes — bring an adapter (or borrow from reception). Voltage 230 V.</p>
+        </details>
+        <details class="faq-item" data-faq="arrival">
+          <summary>Can I arrive late at night?</summary>
+          <p>Standard check-in is 14:00 onwards. Late arrivals up to midnight are no problem — let us know your flight number and we'll keep your villa ready.</p>
+        </details>
+        <details class="faq-item" data-faq="booking">
+          <summary>What is the cancellation policy?</summary>
+          <p>Free cancellation up to 14 days before check-in for direct enquiries. Partial refund up to 7 days. Within 7 days, the first night is non-refundable.</p>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     FOOTER — (F) z mého v2 s palm sway
+     ===================================================================== -->
+<footer>
+  <svg class="palm-deco" viewBox="0 0 100 200" aria-hidden="true">
+    <g stroke="var(--accent)" stroke-width="1.5" fill="none">
+      <path d="M50 200 L50 60"/>
+      <path d="M50 60 Q30 50 10 30"/>
+      <path d="M50 60 Q70 50 90 30"/>
+      <path d="M50 65 Q35 60 15 50"/>
+      <path d="M50 65 Q65 60 85 50"/>
+      <path d="M50 70 Q35 80 20 75"/>
+      <path d="M50 70 Q65 80 80 75"/>
+      <path d="M50 75 Q40 90 30 95"/>
+      <path d="M50 75 Q60 90 70 95"/>
+    </g>
+  </svg>
+  <svg class="palm-deco" viewBox="0 0 100 200" aria-hidden="true">
+    <g stroke="var(--accent)" stroke-width="1.5" fill="none">
+      <path d="M50 200 L50 60"/>
+      <path d="M50 60 Q30 50 10 30"/>
+      <path d="M50 60 Q70 50 90 30"/>
+      <path d="M50 65 Q35 60 15 50"/>
+      <path d="M50 65 Q65 60 85 50"/>
+      <path d="M50 70 Q35 80 20 75"/>
+      <path d="M50 70 Q65 80 80 75"/>
+    </g>
+  </svg>
+
+  <div class="foot-grid">
+    <div>
+      <img id="brand-logo-foot" src="./assets/logos/logo-footer-dark.png" alt="108 Palms Beach Resort" style="height:240px; margin-bottom: 12px; border-radius: 18px;"/>
+      <p style="color:var(--text-muted); font-size:14px; line-height:1.6; max-width:300px;">A boutique beachfront resort in Sampalthivu, Sri Lanka. Quieter than the south, warmer than the corporate chains.</p>
+    </div>
+    <div>
+      <h4>Stay</h4>
+      <a href="#accommodation">Accommodation</a>
+      <a href="#faq">FAQ</a>
+      <a href="#reservation">Reservation</a>
+    </div>
+    <div>
+      <h4>Discover</h4>
+      <a href="#location">Location</a>
+      <a href="#gallery">Gallery</a>
+      <a href="https://maps.google.com/?q=108+Palms+Beach+Resort" target="_blank" rel="noopener">Open in Google Maps</a>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <a href="https://wa.me/420604294777">WhatsApp +420 604 294 777</a>
+      <a href="mailto:srilankaresortyt@gmail.com">srilankaresortyt@gmail.com</a>
+      <a href="https://www.booking.com" target="_blank" rel="noopener">Booking.com (8.9 / 10)</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 108 Palms Beach Resort · Sampalthivu, Trincomalee, Sri Lanka</span>
+    <span>v3 · Re-design prototype, May 2026</span>
+  </div>
+</footer>
+
+<!-- =====================================================================
+     SCRIPTS
+     ===================================================================== -->
+<script>
+(function() {
+  const isDesktop = window.matchMedia('(min-width: 901px)').matches;
+
+  // (A) Custom cursor + trail (no "Reserve" badge)
+  const cursor = document.getElementById('cursor');
+  const trail  = document.getElementById('cursor-trail');
+  if (cursor && isDesktop) {
+    let tx = 0, ty = 0, cx = 0, cy = 0;
+    document.addEventListener('mousemove', e => {
+      cx = e.clientX; cy = e.clientY;
+      cursor.style.left = cx + 'px';
+      cursor.style.top  = cy + 'px';
+    });
+    const tick = () => {
+      tx += (cx - tx) * 0.18;
+      ty += (cy - ty) * 0.18;
+      if (trail) {
+        trail.style.left = tx + 'px';
+        trail.style.top  = ty + 'px';
       }
-    </script>
-    <script type="module" crossorigin src="/stivance-deploy/assets/index-BgPQXrR0.js"></script>
-    <link rel="stylesheet" crossorigin href="/stivance-deploy/assets/index-DrQOaPfW.css">
-  </head>
+      requestAnimationFrame(tick);
+    };
+    tick();
+    document.querySelectorAll('a, button, .gal-tile, .villa-card, summary, .stat-card, input, select').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('is-hover'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('is-hover'));
+    });
+  }
 
-  <body>
-    <div id="root"></div>
-  </body>
+  // (C) Magnetic buttons (only on .magnetic, e.g. Open reservation page)
+  if (isDesktop) {
+    document.querySelectorAll('.magnetic').forEach(el => {
+      el.addEventListener('mousemove', e => {
+        const r = el.getBoundingClientRect();
+        const x = e.clientX - r.left - r.width/2;
+        const y = e.clientY - r.top  - r.height/2;
+        el.style.transform = `translate(${x*0.18}px, ${y*0.25}px)`;
+      });
+      el.addEventListener('mouseleave', () => el.style.transform = '');
+    });
+  }
+
+  // Theme + lang toggles
+  document.getElementById('theme-toggle')?.addEventListener('click', () => {
+    const cur = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = cur;
+    document.getElementById('theme-label').textContent = cur.toUpperCase();
+  });
+  const en = document.getElementById('lang-en'); const cz = document.getElementById('lang-cz');
+  en?.addEventListener('click', () => { document.documentElement.dataset.lang='en'; en.classList.add('active'); cz.classList.remove('active'); });
+  cz?.addEventListener('click', () => { document.documentElement.dataset.lang='cz'; cz.classList.add('active'); en.classList.remove('active'); });
+
+  // Nav scroll effect
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 80), { passive: true });
+
+  // Number counters
+  const counters = document.querySelectorAll('.counter');
+  const counterObs = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (en.isIntersecting) {
+        const el = en.target;
+        const target = parseFloat(el.dataset.target);
+        const decimal = parseInt(el.dataset.decimal || '0', 10);
+        const dur = 1200;
+        const start = performance.now();
+        const animate = (t) => {
+          const p = Math.min(1, (t - start) / dur);
+          const eased = 1 - Math.pow(1 - p, 4);
+          el.textContent = (target * eased).toFixed(decimal);
+          if (p < 1) requestAnimationFrame(animate);
+        };
+        requestAnimationFrame(animate);
+        counterObs.unobserve(el);
+      }
+    });
+  }, { threshold: 0.4 });
+  counters.forEach(c => counterObs.observe(c));
+
+  // Fade-in
+  const fadeObs = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('is-visible'); fadeObs.unobserve(en.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => fadeObs.observe(el));
+
+  // Image reveal
+  const revealObs = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('is-visible'); revealObs.unobserve(en.target); } });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('.reveal-img').forEach(el => revealObs.observe(el));
+
+  // (B) Section indicator active state
+  const ind = document.querySelector('.section-indicator');
+  const sectionIds = ['top','gallery','accommodation','location','faq'];
+  const indObs = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (en.isIntersecting) {
+        ind?.querySelectorAll('a').forEach(a => a.classList.remove('active'));
+        ind?.querySelector(`a[data-section="${en.target.id}"]`)?.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -40% 0px' });
+  sectionIds.forEach(s => { const el = document.getElementById(s); if (el) indObs.observe(el); });
+
+  // (E) FAQ category filter
+  document.querySelectorAll('.faq-cats button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.faq-cats button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const cat = btn.dataset.faqCat;
+      document.querySelectorAll('.faq-item').forEach(item => {
+        item.style.display = (cat === 'all' || item.dataset.faq === cat) ? '' : 'none';
+      });
+    });
+  });
+
+  // Gallery arrows: shuffle the mosaic photos
+  const allPhotos = ['01-beach-loungers.jpg','02-cuisine-curry.jpg','03-villa-pool-exterior.jpg','04-thatched-gazebo.jpg','05-bedroom-wood-interior.jpg','06-bedroom-canopy-bed.jpg','07-palm-canopy-sunset.jpg','08-pool-curved.jpg','09-room-with-mirror.jpg','10-beach-chairs-front.jpg','11-sigiriya-rock.jpg','12-sunset-palm-reflection.jpg','13-beach-palms-clouds.jpg','14-pool-side-view.jpg','15-garden-gazebo.jpg','16-lounger-in-palms.jpg','17-walkway-bridge.jpg','18-food-platter.jpg','19-dining-table-view.jpg','20-ocean-pier.jpg'];
+  let gOff = 0;
+  function renderGal() {
+    const grid = document.getElementById('gallery-grid');
+    grid.innerHTML = '';
+    for (let i=0; i<9; i++) {
+      const photo = allPhotos[(gOff + i) % allPhotos.length];
+      const tile = document.createElement('div');
+      tile.className = 'gal-tile';
+      tile.innerHTML = `<img src="./gallery/${photo}" alt="Resort photo" loading="lazy">`;
+      grid.appendChild(tile);
+    }
+  }
+  document.getElementById('gal-next')?.addEventListener('click', () => { gOff = (gOff+1) % allPhotos.length; renderGal(); });
+  document.getElementById('gal-prev')?.addEventListener('click', () => { gOff = (gOff-1+allPhotos.length) % allPhotos.length; renderGal(); });
+
+  // ============== 10 NEW EFFECTS ==============
+
+  // (1) Scroll progress bar
+  const progress = document.getElementById('scroll-progress');
+  const updateProgress = () => {
+    const h = document.documentElement;
+    const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+    if (progress) progress.style.width = pct + '%';
+  };
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+
+  // (2) Ambient gold particles
+  const particles = document.getElementById('particles');
+  if (particles && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    for (let i = 0; i < 18; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const size = 1 + Math.random() * 4;
+      p.style.width = size + 'px';
+      p.style.height = size + 'px';
+      p.style.left = Math.random() * 100 + 'vw';
+      p.style.animationDuration = (16 + Math.random() * 26) + 's';
+      p.style.animationDelay = -Math.random() * 30 + 's';
+      particles.appendChild(p);
+    }
+  }
+
+  // (5) Section-rise stagger
+  const riseObs = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('is-visible'); riseObs.unobserve(en.target); } });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.section-rise').forEach(el => riseObs.observe(el));
+
+  // (Greeting, mini-cal, magnetic gallery cursor — odebráno per feedback)
+})();
+</script>
+
+</body>
 </html>
