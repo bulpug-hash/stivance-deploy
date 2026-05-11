@@ -1,0 +1,296 @@
+/* =====================================================================
+   108 Palms — REDESIGN OVERLAY
+   Aplikuje brand styling + visual efekty na existující React app.
+   Žádné změny v existující struktuře — jen overrides + dodatky.
+   ===================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Brand palette per oficiální PDF brand manuál */
+  --c108-palm-green:    #1C4147;
+  --c108-sand-gold:     #BEA883;
+  --c108-coral-cream:   #FBF4EA;
+  --c108-deep-reef:     #0F2A2E;
+  --c108-bronze-palm:   #8E7A55;
+  --c108-dune-sand:     #E8D9BC;
+  --c108-linen:         #F4E9D5;
+  --c108-sea-mist:      #6B9CA3;
+  --c108-ink:           #141414;
+  --c108-easing: cubic-bezier(.2,.7,.2,1);
+}
+
+/* =========================
+   BRAND FONTS (override)
+   ========================= */
+body, body input, body button, body select, body textarea {
+  font-family: "Manrope", system-ui, -apple-system, "Helvetica", sans-serif !important;
+}
+h1, h2, h3, h4, h5, h6,
+[class*="display"], [class*="title"], [class*="heading"],
+blockquote {
+  font-family: "Cormorant Garamond", "Times New Roman", serif !important;
+  letter-spacing: -0.01em;
+}
+
+/* =========================
+   LIGHT THEME — Coral Cream BG (per brand manuál)
+   ========================= */
+html.light, html[data-theme="light"] {
+  background: var(--c108-coral-cream) !important;
+}
+html.light body, html[data-theme="light"] body {
+  background: var(--c108-coral-cream) !important;
+  color: var(--c108-palm-green) !important;
+}
+html.light h1, html.light h2, html.light h3,
+html[data-theme="light"] h1, html[data-theme="light"] h2, html[data-theme="light"] h3 {
+  color: var(--c108-palm-green) !important;
+}
+
+/* =========================
+   GOLD PARTICLES (background)
+   ========================= */
+.c108-particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+.c108-particle {
+  position: absolute;
+  width: 3px; height: 3px;
+  background: var(--c108-sand-gold);
+  border-radius: 50%;
+  opacity: 0;
+  filter: blur(.5px);
+  box-shadow: 0 0 8px rgba(190,168,131,.65);
+  animation: c108-particleFloat linear infinite;
+}
+@keyframes c108-particleFloat {
+  0%   { transform: translate3d(0, 110vh, 0); opacity: 0; }
+  10%  { opacity: .8; }
+  90%  { opacity: .4; }
+  100% { transform: translate3d(20vw, -10vh, 0); opacity: 0; }
+}
+html.light .c108-particle {
+  background: var(--c108-bronze-palm);
+  box-shadow: 0 0 8px rgba(142,122,85,.7);
+}
+
+/* =========================
+   CUSTOM CURSOR + TRAIL (no Reserve badge)
+   ========================= */
+@media (min-width: 901px) {
+  body { cursor: none !important; }
+  body * { cursor: none !important; }
+}
+.c108-cursor {
+  position: fixed;
+  top: 0; left: 0;
+  width: 12px; height: 12px;
+  border: 1.5px solid var(--c108-sand-gold);
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 10000;
+  transition: width .25s var(--c108-easing), height .25s var(--c108-easing), background .2s;
+  mix-blend-mode: difference;
+}
+.c108-cursor-trail {
+  position: fixed;
+  top: 0; left: 0;
+  width: 28px; height: 28px;
+  border: 1px solid var(--c108-sand-gold);
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9998;
+  opacity: .35;
+  mix-blend-mode: difference;
+}
+.c108-cursor.is-hover { width: 40px; height: 40px; background: rgba(190,168,131,.22); }
+@media (max-width: 900px) {
+  .c108-cursor, .c108-cursor-trail { display: none; }
+  body, body * { cursor: auto !important; }
+}
+
+/* =========================
+   SHIMMER HOVER on all texts
+   ========================= */
+@media (min-width: 901px) {
+  h1, h2, h3, h4, p, li, a, summary,
+  [class*="eyebrow"], [class*="label"], [class*="caption"] {
+    background-image: linear-gradient(110deg, currentColor 0%, currentColor 35%, var(--c108-sand-gold) 50%, currentColor 65%, currentColor 100%);
+    background-size: 250% 100%;
+    background-position: 100% 50%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    transition: background-position .9s var(--c108-easing), -webkit-text-fill-color .3s, color .3s;
+  }
+  h1:hover, h2:hover, h3:hover, h4:hover,
+  p:hover, li:hover, a:hover, summary:hover,
+  [class*="eyebrow"]:hover, [class*="label"]:hover, [class*="caption"]:hover {
+    -webkit-text-fill-color: transparent !important;
+    color: transparent !important;
+    background-position: 0% 50% !important;
+  }
+  /* Vyhnutí v tlačítkách kde to vadí */
+  button, button *, [role="button"], [role="button"] * {
+    background-image: none !important;
+    -webkit-text-fill-color: initial !important;
+    color: inherit !important;
+  }
+}
+
+/* =========================
+   SECTION INDICATOR (right sticky)
+   ========================= */
+.c108-section-indicator {
+  position: fixed;
+  right: 22px; top: 50%;
+  transform: translateY(-50%);
+  z-index: 70;
+  display: flex; flex-direction: column; gap: 18px;
+  pointer-events: none;
+}
+.c108-section-indicator a {
+  pointer-events: auto;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(190,168,131,.4);
+  text-decoration: none;
+  transition: all .3s var(--c108-easing);
+  position: relative;
+}
+.c108-section-indicator a::after {
+  content: attr(data-label);
+  position: absolute;
+  right: 18px; top: 50%;
+  transform: translateY(-50%);
+  font-family: "Manrope", sans-serif;
+  font-size: 10px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--c108-coral-cream);
+  background: rgba(15,42,46,.95);
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s, transform .25s;
+}
+html.light .c108-section-indicator a::after {
+  color: var(--c108-coral-cream);
+  background: var(--c108-palm-green);
+}
+.c108-section-indicator a:hover::after {
+  opacity: 1; transform: translateY(-50%) translateX(-4px);
+}
+.c108-section-indicator a.active {
+  width: 28px;
+  border-radius: 4px;
+  background: var(--c108-sand-gold);
+}
+@media (max-width: 1100px) { .c108-section-indicator { display: none; } }
+
+/* =========================
+   IMAGE REVEAL (Accommodation)
+   ========================= */
+.c108-reveal-img {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 1.2s var(--c108-easing);
+  will-change: clip-path;
+}
+.c108-reveal-img.is-visible {
+  clip-path: inset(0 0 0 0);
+}
+
+/* =========================
+   HERO VIDEO CINEMATIC ZOOM-OUT
+   ========================= */
+.c108-hero-zoom {
+  animation: c108-cineZoom 6s var(--c108-easing) forwards !important;
+  will-change: transform;
+}
+@keyframes c108-cineZoom {
+  0%   { transform: scale(1.28); }
+  100% { transform: scale(1.0); }
+}
+
+/* =========================
+   WORD STAGGER (H1)
+   ========================= */
+.c108-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(40px) rotate(2deg);
+  animation: c108-wordIn 1s var(--c108-easing) forwards;
+}
+@keyframes c108-wordIn {
+  to { opacity: 1; transform: translateY(0) rotate(0); }
+}
+
+/* =========================
+   NUMBER COUNTER target
+   ========================= */
+.c108-counting { display: inline-block; min-width: 1ch; }
+
+/* =========================
+   FOOTER PALM SWAY
+   ========================= */
+.c108-palm-deco {
+  position: absolute;
+  bottom: 0;
+  width: 110px;
+  height: 200px;
+  pointer-events: none;
+  opacity: .25;
+  transform-origin: bottom center;
+  animation: c108-sway 7s ease-in-out infinite;
+}
+.c108-palm-deco.left  { left: 4%; }
+.c108-palm-deco.right { right: 4%; animation-delay: -3s; transform: scaleX(-1); }
+@keyframes c108-sway {
+  0%, 100% { transform: rotate(-2deg) translateY(0); }
+  50%      { transform: rotate(2deg)  translateY(-3px); }
+}
+html.light .c108-palm-deco { opacity: .15; }
+
+/* =========================
+   FAQ category chips (přidáno do existujícího FAQ)
+   ========================= */
+.c108-faq-cats {
+  display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 22px;
+}
+.c108-faq-cats button {
+  background: transparent;
+  border: 1px solid rgba(190,168,131,.35);
+  color: var(--c108-sand-gold);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-family: "Manrope", sans-serif;
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: none;
+}
+@media (max-width: 900px) { .c108-faq-cats button { cursor: pointer; } }
+.c108-faq-cats button.active {
+  background: var(--c108-sand-gold);
+  color: var(--c108-deep-reef);
+  border-color: var(--c108-sand-gold);
+}
+
+/* =========================
+   PREFERS REDUCED MOTION
+   ========================= */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    transition-duration: .001ms !important;
+  }
+}
