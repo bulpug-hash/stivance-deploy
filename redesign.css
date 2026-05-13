@@ -1,0 +1,1285 @@
+/* =====================================================================
+   108 Palms — REDESIGN OVERLAY (v4)
+   Aplikuje brand styling + visual efekty na existující React app.
+   Fixed: shimmer (glow misto ztmaveni), pozadi (Deep Reef), logo blizko,
+   tilt cards, footer enhancement.
+   ===================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --c108-palm-green:    #1C4147;
+  --c108-sand-gold:     #BEA883;
+  --c108-coral-cream:   #FBF4EA;
+  --c108-deep-reef:     #0F2A2E;
+  --c108-bronze-palm:   #8E7A55;
+  --c108-dune-sand:     #E8D9BC;
+  --c108-linen:         #F4E9D5;
+  --c108-sea-mist:      #6B9CA3;
+  --c108-ink:           #141414;
+  --c108-easing: cubic-bezier(.2,.7,.2,1);
+}
+
+/* =========================
+   BRAND FONTS
+   ========================= */
+body, body input, body button, body select, body textarea {
+  font-family: "Manrope", system-ui, -apple-system, "Helvetica", sans-serif !important;
+}
+h1, h2, h3, h4, h5, h6,
+[class*="display"], [class*="title"], [class*="heading"],
+blockquote {
+  font-family: "Cormorant Garamond", "Times New Roman", serif !important;
+  letter-spacing: -0.01em;
+}
+
+/* =========================
+   POZADÍ — víc dozelena (Deep Reef misto cerne)
+   ========================= */
+html.dark, html:not(.light):not([data-theme="light"]) {
+  background: var(--c108-deep-reef) !important;
+}
+html.dark body, html:not(.light):not([data-theme="light"]) body {
+  background: var(--c108-deep-reef) !important;
+}
+
+/* LIGHT THEME — Coral Cream */
+html.light, html[data-theme="light"] {
+  background: var(--c108-coral-cream) !important;
+}
+html.light body, html[data-theme="light"] body {
+  background: var(--c108-coral-cream) !important;
+  color: var(--c108-palm-green) !important;
+}
+html.light h1, html.light h2, html.light h3,
+html[data-theme="light"] h1, html[data-theme="light"] h2, html[data-theme="light"] h3 {
+  color: var(--c108-palm-green) !important;
+}
+
+/* =========================
+   GOLD PARTICLES
+   ========================= */
+.c108-particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+.c108-particle {
+  position: absolute;
+  width: 3px; height: 3px;
+  background: var(--c108-sand-gold);
+  border-radius: 50%;
+  opacity: 0;
+  filter: blur(.5px);
+  box-shadow: 0 0 8px rgba(190,168,131,.65);
+  animation: c108-particleFloat linear infinite;
+}
+@keyframes c108-particleFloat {
+  0%   { transform: translate3d(0, 110vh, 0); opacity: 0; }
+  10%  { opacity: .8; }
+  90%  { opacity: .4; }
+  100% { transform: translate3d(20vw, -10vh, 0); opacity: 0; }
+}
+html.light .c108-particle {
+  background: var(--c108-bronze-palm);
+  box-shadow: 0 0 8px rgba(142,122,85,.7);
+}
+
+/* =========================
+   CUSTOM CURSOR + TRAIL
+   ========================= */
+@media (min-width: 901px) {
+  body { cursor: none !important; }
+  body * { cursor: none !important; }
+}
+.c108-cursor {
+  position: fixed;
+  top: 0; left: 0;
+  width: 12px; height: 12px;
+  border: 1.5px solid var(--c108-sand-gold);
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 10000;
+  transition: width .25s var(--c108-easing), height .25s var(--c108-easing), background .2s;
+  mix-blend-mode: difference;
+}
+.c108-cursor-trail {
+  position: fixed;
+  top: 0; left: 0;
+  width: 28px; height: 28px;
+  border: 1px solid var(--c108-sand-gold);
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9998;
+  opacity: .35;
+  mix-blend-mode: difference;
+}
+.c108-cursor.is-hover { width: 40px; height: 40px; background: rgba(190,168,131,.22); }
+@media (max-width: 900px) {
+  .c108-cursor, .c108-cursor-trail { display: none; }
+  body, body * { cursor: auto !important; }
+}
+
+/* =========================
+   v10: SHIMMER HOVER — JEN VELKÉ NADPISY (h1, h2)
+   Text zůstává VIDITELNÝ vždy (gradient je currentColor → gold → currentColor).
+   Per Tomáš PDF: jen velké nadpisy, ne běžný text. Bez "černání".
+   ========================= */
+/* v12: TEXT VŽDY VIDITELNÝ + gold GLOW (text-shadow) na hover.
+   Per Tomáš: "ten název tam musí zůstat furt, ale chci, aby ten název se zablyštěl tou zlatou".
+   Žádné -webkit-text-fill-color: transparent (eliminuje checker-pattern bug s film grain).
+   Funguje jak na H1 (108 Palms Beach Resort) tak na všech section H2.
+*/
+@media (min-width: 901px) {
+  h1, h2 {
+    background-image: none !important;
+    -webkit-text-fill-color: currentColor !important;
+    background-clip: initial !important;
+    -webkit-background-clip: initial !important;
+    transition: text-shadow .55s var(--c108-easing), filter .55s var(--c108-easing) !important;
+  }
+  h1:hover, h2:hover {
+    text-shadow:
+      0 0 18px rgba(190, 168, 131, 0.55),
+      0 0 38px rgba(190, 168, 131, 0.30),
+      0 0 70px rgba(190, 168, 131, 0.16);
+    filter: drop-shadow(0 0 4px rgba(190, 168, 131, 0.4));
+  }
+  html.light h1:hover, html.light h2:hover {
+    text-shadow:
+      0 0 18px rgba(142, 122, 85, 0.6),
+      0 0 38px rgba(142, 122, 85, 0.34),
+      0 0 70px rgba(142, 122, 85, 0.18);
+    filter: drop-shadow(0 0 4px rgba(142, 122, 85, 0.5));
+  }
+  /* Reset shimmer-btn z v11 — Reservation tlačítko dostane GOLD GLOW na hover */
+  a.c108-shimmer-btn, button.c108-shimmer-btn {
+    background-image: none !important;
+    -webkit-text-fill-color: currentColor !important;
+    transition: text-shadow .4s ease, color .4s ease !important;
+  }
+  a.c108-shimmer-btn:hover, button.c108-shimmer-btn:hover {
+    text-shadow:
+      0 0 14px rgba(190, 168, 131, 0.7),
+      0 0 28px rgba(190, 168, 131, 0.4) !important;
+  }
+}
+
+/* =========================
+   SECTION INDICATOR vpravo
+   ========================= */
+.c108-section-indicator {
+  position: fixed;
+  right: 22px; top: 50%;
+  transform: translateY(-50%);
+  z-index: 70;
+  display: flex; flex-direction: column; gap: 18px;
+  pointer-events: none;
+}
+.c108-section-indicator a {
+  pointer-events: auto;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(190,168,131,.4);
+  text-decoration: none;
+  transition: all .3s var(--c108-easing);
+  position: relative;
+}
+.c108-section-indicator a::after {
+  content: attr(data-label);
+  position: absolute;
+  right: 18px; top: 50%;
+  transform: translateY(-50%);
+  font-family: "Manrope", sans-serif;
+  font-size: 10px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--c108-coral-cream);
+  background: rgba(15,42,46,.95);
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s, transform .25s;
+}
+html.light .c108-section-indicator a::after {
+  color: var(--c108-coral-cream);
+  background: var(--c108-palm-green);
+}
+.c108-section-indicator a:hover::after {
+  opacity: 1; transform: translateY(-50%) translateX(-4px);
+}
+.c108-section-indicator a.active {
+  width: 28px;
+  border-radius: 4px;
+  background: var(--c108-sand-gold);
+}
+@media (max-width: 1100px) { .c108-section-indicator { display: none; } }
+
+/* =========================
+   IMAGE REVEAL (Accommodation)
+   ========================= */
+.c108-reveal-img {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 1.2s var(--c108-easing);
+  will-change: clip-path;
+}
+.c108-reveal-img.is-visible {
+  clip-path: inset(0 0 0 0);
+}
+
+/* =========================
+   ACCOMMODATION CARDS — Apple-style hover (translateY -8 + scale 1.01 + soft shadow + gold border)
+   ========================= */
+.c108-tilt,
+[id="accommodation"] article,
+[id="accommodation"] [class*="card"]:not([class*="cards"]) {
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s ease !important;
+  will-change: transform;
+}
+.c108-tilt:hover,
+[id="accommodation"] article:hover,
+[id="accommodation"] [class*="card"]:not([class*="cards"]):hover {
+  transform: translateY(-8px) scale(1.01) !important;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45) !important;
+  border-color: rgba(217, 185, 124, 0.25) !important;
+}
+/* Vnitřní obrázek — pomalejší zoom (0.6s) */
+[id="accommodation"] article img,
+[id="accommodation"] [class*="card"] img {
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+[id="accommodation"] article:hover img,
+[id="accommodation"] [class*="card"]:hover img {
+  transform: scale(1.05);
+}
+/* Light theme — zlatší stín */
+html.light [id="accommodation"] article:hover,
+html.light [id="accommodation"] [class*="card"]:hover {
+  box-shadow: 0 30px 60px rgba(28, 65, 71, 0.18) !important;
+}
+
+/* Shine sweep zachován jako bonus (overlay efekt) */
+.c108-shine {
+  position: relative;
+  overflow: hidden;
+}
+.c108-shine::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(125deg, transparent 35%, rgba(255,255,255,.14) 50%, transparent 65%);
+  transform: translateX(-100%);
+  transition: transform .9s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+  z-index: 2;
+}
+.c108-shine:hover::before {
+  transform: translateX(100%);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .c108-tilt,
+  .c108-tilt:hover,
+  [id="accommodation"] article,
+  [id="accommodation"] article:hover,
+  [id="accommodation"] [class*="card"],
+  [id="accommodation"] [class*="card"]:hover {
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* =========================
+   CINEMATIC HERO ZOOM-OUT
+   ========================= */
+.c108-hero-zoom {
+  animation: c108-cineZoom 6s var(--c108-easing) forwards !important;
+  will-change: transform;
+}
+@keyframes c108-cineZoom {
+  0%   { transform: scale(1.28); }
+  100% { transform: scale(1.0); }
+}
+
+/* =========================
+   WORD STAGGER (H1)
+   ========================= */
+.c108-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(40px) rotate(2deg);
+  animation: c108-wordIn 1s var(--c108-easing) forwards;
+}
+@keyframes c108-wordIn {
+  to { opacity: 1; transform: translateY(0) rotate(0); }
+}
+
+/* =========================
+   NUMBER COUNTER target — runs ONCE at load
+   ========================= */
+.c108-counting {
+  display: inline-block;
+  min-width: 1ch;
+  opacity: 0;
+  animation: c108-fadeIn .4s ease-out .2s forwards;
+}
+@keyframes c108-fadeIn { to { opacity: 1; } }
+
+/* =========================
+   FOOTER PALM SWAY — palma ve stylu loga (spine + paprskovité větve)
+   ========================= */
+.c108-palm-deco {
+  position: absolute;
+  bottom: 20px;
+  width: 140px;
+  height: 240px;
+  pointer-events: none;
+  opacity: .35;
+  transform-origin: bottom center;
+  animation: c108-sway 7s ease-in-out infinite;
+  z-index: 1;
+}
+.c108-palm-deco.left  { left: 4%; }
+.c108-palm-deco.right { right: 4%; animation-delay: -3s; transform: scaleX(-1); }
+@keyframes c108-sway {
+  0%, 100% { transform: rotate(-2deg) translateY(0); }
+  50%      { transform: rotate(2deg)  translateY(-3px); }
+}
+.c108-palm-deco.right { animation: c108-sway-right 7s ease-in-out infinite; animation-delay: -3s; }
+@keyframes c108-sway-right {
+  0%, 100% { transform: scaleX(-1) rotate(-2deg) translateY(0); }
+  50%      { transform: scaleX(-1) rotate(2deg)  translateY(-3px); }
+}
+html.light .c108-palm-deco { opacity: .25; }
+html.light .c108-palm-deco svg g { stroke: var(--c108-palm-green) !important; }
+
+/* =========================
+   FAQ category chips
+   ========================= */
+.c108-faq-cats {
+  display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 22px;
+}
+.c108-faq-cats button {
+  background: transparent;
+  border: 1px solid rgba(190,168,131,.35);
+  color: var(--c108-sand-gold);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-family: "Manrope", sans-serif;
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: none;
+}
+@media (max-width: 900px) { .c108-faq-cats button { cursor: pointer; } }
+.c108-faq-cats button.active {
+  background: var(--c108-sand-gold);
+  color: var(--c108-deep-reef);
+  border-color: var(--c108-sand-gold);
+}
+
+/* =========================
+   LOGO NAV — víc k sobě (smaller gap, larger size)
+   ========================= */
+header img[alt*="108" i],
+header img[src*="logo"],
+nav img[alt*="108" i] {
+  max-height: 64px !important;
+  height: auto !important;
+  object-fit: contain !important;
+  letter-spacing: -1px !important;
+}
+
+/* =========================
+   FOOTER — extra panel inspirován prototype
+   ========================= */
+.c108-footer-extra {
+  position: relative;
+  z-index: 2;
+  padding: 40px 24px 20px;
+  border-top: 1px solid rgba(190,168,131,.15);
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 32px;
+  max-width: 1320px;
+  margin-inline: auto;
+}
+@media (max-width: 900px) { .c108-footer-extra { grid-template-columns: 1fr 1fr; gap: 24px; } }
+.c108-footer-extra h4 {
+  font-family: "Manrope", sans-serif !important;
+  font-size: 12px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--c108-sand-gold);
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.c108-footer-extra a {
+  display: block;
+  font-size: 14px;
+  color: rgba(251,244,234,.7);
+  text-decoration: none;
+  padding: 4px 0;
+  transition: color .2s;
+  cursor: none;
+}
+@media (max-width: 900px) { .c108-footer-extra a { cursor: pointer; } }
+.c108-footer-extra a:hover { color: var(--c108-sand-gold); }
+html.light .c108-footer-extra a { color: rgba(28,65,71,.75); }
+html.light .c108-footer-extra a:hover { color: var(--c108-bronze-palm); }
+.c108-footer-extra .brand-blurb {
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(251,244,234,.6);
+  max-width: 320px;
+}
+html.light .c108-footer-extra .brand-blurb { color: rgba(28,65,71,.7); }
+.c108-footer-extra .brand-mark {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 28px;
+  color: var(--c108-sand-gold);
+  margin-bottom: 8px;
+  letter-spacing: 0;
+}
+
+/* =========================
+   v10 — BRAND PRELOADER (text intro → real logo image fade)
+   1. "108 PALMS · BEACH RESORT" text vyjde zespodu pod maskou
+   2. Po dokončení textu se objeví ŘEŠENÉ LOGO (PNG mark-only z brand packu)
+   3. Celá vrstva odjede nahoru
+   ========================= */
+.c108-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  background: var(--c108-deep-reef);
+  display: grid;
+  place-items: center;
+  animation: c108-preloaderExit 0.8s cubic-bezier(0.85, 0, 0.15, 1) 3.4s forwards;
+}
+html.light .c108-preloader { background: var(--c108-coral-cream); }
+
+.c108-preloader-inner {
+  text-align: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+}
+
+/* TEXT část — "108 PALMS · BEACH RESORT" */
+.c108-preloader-text {
+  font-family: "Manrope", sans-serif;
+  font-size: clamp(11px, 1.1vw, 14px);
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  color: var(--c108-sand-gold);
+  overflow: hidden;
+  height: 1.4em;
+}
+.c108-preloader-text span {
+  display: inline-block;
+  transform: translateY(110%);
+  animation: c108-preRise 0.7s cubic-bezier(0.16, 1, 0.30, 1) 0.2s forwards;
+  opacity: 0;
+}
+
+/* LOGO IMAGE část — opravdové logo z brand packu — v12: JEŠTĚ VĚTŠÍ */
+.c108-preloader-logo {
+  width: clamp(380px, 48vw, 660px);
+  height: auto;
+  opacity: 0;
+  transform: translateY(20px) scale(0.92);
+  animation: c108-preLogoIn 1.1s cubic-bezier(0.16, 1, 0.30, 1) 1.0s forwards;
+  filter: drop-shadow(0 8px 30px rgba(0,0,0,0.35));
+}
+@media (max-width: 600px) {
+  .c108-preloader-logo { width: clamp(240px, 75vw, 340px); }
+}
+
+/* Zlatá linka pod logem */
+.c108-preloader-line {
+  margin-top: 6px;
+  width: 0;
+  height: 1.5px;
+  background: var(--c108-sand-gold);
+  animation: c108-preLine 0.8s cubic-bezier(0.16, 1, 0.30, 1) 2.2s forwards;
+}
+
+/* TAG pod čarou */
+.c108-preloader-tag {
+  font-family: "Manrope", sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  color: var(--c108-coral-cream);
+  opacity: 0;
+  animation: c108-preFade 0.6s ease-out 2.7s forwards;
+}
+html.light .c108-preloader-tag { color: var(--c108-palm-green); }
+
+@keyframes c108-preRise {
+  0%   { transform: translateY(110%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+@keyframes c108-preLogoIn {
+  0%   { opacity: 0; transform: translateY(20px) scale(0.92); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes c108-preLine {
+  to { width: 220px; }
+}
+@keyframes c108-preFade {
+  to { opacity: 1; }
+}
+@keyframes c108-preloaderExit {
+  0%   { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-100%); opacity: 0; }
+}
+
+body.c108-preloaded { overflow: hidden; }
+
+/* =========================
+   v9 — STICKY BOOKING PILL (uprostřed dole místo Reservation v rohu)
+   ========================= */
+.c108-sticky-booking {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translate(-50%, 130%);
+  z-index: 80;
+  background: var(--c108-deep-reef);
+  color: var(--c108-coral-cream);
+  border: 1px solid rgba(190,168,131,.25);
+  border-radius: 999px;
+  padding: 14px 26px 14px 22px;
+  font-family: "Manrope", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 16px 50px rgba(0,0,0,.4);
+  cursor: none;
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.30, 1), box-shadow 0.3s;
+}
+@media (max-width: 900px) { .c108-sticky-booking { cursor: pointer; font-size: 12px; padding: 12px 22px 12px 18px; } }
+.c108-sticky-booking.visible {
+  transform: translate(-50%, 0);
+}
+.c108-sticky-booking:hover {
+  box-shadow: 0 20px 60px rgba(0,0,0,.55), 0 0 0 1px var(--c108-sand-gold) inset;
+}
+.c108-sticky-booking .arrow {
+  display: inline-grid;
+  place-items: center;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--c108-sand-gold);
+  color: var(--c108-deep-reef);
+  font-weight: 700;
+  font-size: 14px;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.30, 1);
+}
+.c108-sticky-booking:hover .arrow { transform: translateX(4px); }
+html.light .c108-sticky-booking { background: var(--c108-palm-green); color: var(--c108-coral-cream); }
+
+/* =========================
+   v9 — PULL QUOTE (gigantický kurzívní citát)
+   ========================= */
+.c108-pull-quote {
+  margin: 60px auto;
+  max-width: 1100px;
+  padding: 80px 40px;
+  text-align: center;
+  position: relative;
+}
+.c108-pull-quote::before {
+  content: '"';
+  position: absolute;
+  top: -10px; left: 50%;
+  transform: translateX(-50%);
+  font-family: "Cormorant Garamond", serif;
+  font-size: 200px;
+  line-height: 1;
+  color: var(--c108-sand-gold);
+  opacity: 0.15;
+}
+.c108-pull-quote blockquote {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(28px, 4.2vw, 56px);
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  color: var(--c108-coral-cream);
+  margin: 0;
+}
+html.light .c108-pull-quote blockquote { color: var(--c108-palm-green); }
+.c108-pull-quote .source {
+  margin-top: 32px;
+  font-family: "Manrope", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(251,244,234,.55);
+}
+html.light .c108-pull-quote .source { color: rgba(28,65,71,.6); }
+.c108-pull-quote .source strong {
+  color: var(--c108-sand-gold);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+}
+
+/* =========================
+   v9 — STICKY PINNED EDITORIAL
+   Image vlevo zůstane sticky, text vpravo scrolluje skrz
+   ========================= */
+.c108-pinned-editorial {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 80px 24px;
+  align-items: start;
+}
+@media (max-width: 900px) { .c108-pinned-editorial { grid-template-columns: 1fr; gap: 30px; } }
+.c108-pinned-editorial .pin-image {
+  position: sticky;
+  top: 100px;
+  aspect-ratio: 3/4;
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--c108-palm-green);
+}
+@media (max-width: 900px) { .c108-pinned-editorial .pin-image { position: relative; top: 0; aspect-ratio: 4/3; } }
+.c108-pinned-editorial .pin-image img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.30, 1);
+}
+.c108-pinned-editorial .pin-image:hover img { transform: scale(1.05); }
+.c108-pinned-editorial .pin-blocks {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+.c108-pinned-editorial .pin-block {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.c108-pinned-editorial .pin-block .eyebrow {
+  font-family: "Manrope", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--c108-sand-gold);
+  margin-bottom: 16px;
+}
+.c108-pinned-editorial .pin-block h3 {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 400;
+  font-size: clamp(32px, 4vw, 52px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 18px;
+}
+.c108-pinned-editorial .pin-block p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(251,244,234,.75);
+}
+html.light .c108-pinned-editorial .pin-block p { color: rgba(28,65,71,.75); }
+
+/* =========================
+   v9.5 — FILM GRAIN OVERLAY (subtle, luxury detail)
+   ========================= */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9000;
+  opacity: .055;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .9 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/></svg>");
+  background-size: 200px 200px;
+}
+html.light body::after { opacity: .035; mix-blend-mode: multiply; }
+
+/* v9.5 marquee strip — REMOVED v10 per Tomáš PDF (nechtěl benefits ticker) */
+.c108-marquee { display: none !important; }
+
+/* =========================
+   v9.6: SCROLL PROGRESS BAR (zlatá linka nahoře)
+   ========================= */
+.c108-scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  width: 0;
+  background: linear-gradient(90deg, var(--c108-sand-gold), #C8A86B);
+  box-shadow: 0 0 10px rgba(190, 168, 131, 0.6);
+  z-index: 99998;
+  transition: width 0.05s linear;
+  pointer-events: none;
+}
+
+/* =========================
+   v9.6: STICKY PINNED EDITORIAL (image left sticky, text scrolls right)
+   ========================= */
+.c108-pinned-editorial {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(32px, 6vw, 96px);
+  padding: clamp(80px, 10vw, 140px) clamp(24px, 6vw, 80px);
+  max-width: 1400px;
+  margin: 0 auto;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .c108-pinned-editorial {
+    grid-template-columns: 1fr;
+    padding: 60px 24px;
+  }
+}
+.c108-pinned-editorial .c108-pinned-media {
+  position: sticky;
+  top: 100px;
+  aspect-ratio: 4/5;
+  overflow: hidden;
+  border-radius: 6px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.35), 0 0 0 1px rgba(190, 168, 131, 0.15);
+}
+@media (max-width: 900px) {
+  .c108-pinned-editorial .c108-pinned-media {
+    position: relative;
+    top: 0;
+    aspect-ratio: 16/10;
+  }
+}
+.c108-pinned-editorial .c108-pinned-media img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.04);
+  transition: transform 8s ease-out;
+}
+.c108-pinned-editorial.is-visible .c108-pinned-media img {
+  transform: scale(1);
+}
+.c108-pinned-editorial .c108-pinned-text {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  padding-top: 40px;
+}
+.c108-pinned-editorial .c108-pinned-eyebrow {
+  font-family: "Manrope", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  color: var(--c108-sand-gold);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.c108-pinned-editorial .c108-pinned-eyebrow::before {
+  content: "";
+  width: 28px; height: 1px;
+  background: var(--c108-sand-gold);
+}
+.c108-pinned-editorial .c108-pinned-h {
+  font-family: "Cormorant Garamond", "EB Garamond", serif;
+  font-weight: 300;
+  font-size: clamp(32px, 4.4vw, 56px);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--c108-coral-cream);
+  margin: 0;
+}
+html.light .c108-pinned-editorial .c108-pinned-h { color: var(--c108-palm-green); }
+.c108-pinned-editorial .c108-pinned-block {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.9s var(--c108-easing), transform 0.9s var(--c108-easing);
+}
+.c108-pinned-editorial .c108-pinned-block.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+.c108-pinned-editorial .c108-pinned-block h3 {
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--c108-sand-gold);
+  margin: 0 0 12px 0;
+}
+.c108-pinned-editorial .c108-pinned-block p {
+  font-family: "Cormorant Garamond", "EB Garamond", serif;
+  font-weight: 300;
+  font-size: clamp(18px, 1.6vw, 22px);
+  line-height: 1.6;
+  color: rgba(251, 244, 234, 0.85);
+  margin: 0;
+}
+html.light .c108-pinned-editorial .c108-pinned-block p { color: rgba(28, 65, 71, 0.85); }
+.c108-pinned-editorial .c108-pinned-divider {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--c108-sand-gold), transparent);
+  margin: 8px 0;
+}
+
+/* =========================
+   v9.7: GALLERY LIGHTBOX (click-to-zoom fullscreen)
+   ========================= */
+.c108-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(15, 42, 46, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s var(--c108-easing);
+}
+.c108-lightbox.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.c108-lightbox-img {
+  max-width: 92vw;
+  max-height: 88vh;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 60px 140px rgba(0,0,0,0.6), 0 0 0 1px rgba(190, 168, 131, 0.2);
+  transform: scale(0.96);
+  transition: transform 0.45s var(--c108-easing);
+}
+.c108-lightbox.is-open .c108-lightbox-img {
+  transform: scale(1);
+}
+.c108-lightbox-close,
+.c108-lightbox-prev,
+.c108-lightbox-next {
+  position: absolute;
+  background: rgba(251, 244, 234, 0.08);
+  border: 1px solid rgba(190, 168, 131, 0.3);
+  color: var(--c108-coral-cream);
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 22px;
+  transition: background 0.3s, border-color 0.3s, transform 0.3s;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.c108-lightbox-close:hover,
+.c108-lightbox-prev:hover,
+.c108-lightbox-next:hover {
+  background: rgba(190, 168, 131, 0.2);
+  border-color: var(--c108-sand-gold);
+  transform: scale(1.05);
+}
+.c108-lightbox-close { top: 24px; right: 24px; }
+.c108-lightbox-prev  { left: 24px; top: 50%; transform: translateY(-50%); }
+.c108-lightbox-next  { right: 24px; top: 50%; transform: translateY(-50%); }
+.c108-lightbox-prev:hover { transform: translateY(-50%) scale(1.05); }
+.c108-lightbox-next:hover { transform: translateY(-50%) scale(1.05); }
+.c108-lightbox-counter {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--c108-sand-gold);
+  font-family: "Manrope", sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+@media (max-width: 600px) {
+  .c108-lightbox-prev, .c108-lightbox-next { width: 42px; height: 42px; font-size: 18px; }
+  .c108-lightbox-prev { left: 12px; }
+  .c108-lightbox-next { right: 12px; }
+}
+/* Hint cursor on clickable gallery images */
+.c108-lightbox-trigger {
+  cursor: zoom-in;
+}
+
+/* v9.7 time chip + v9.8 WhatsApp — REMOVED v10 per Tomáš PDF */
+.c108-time-chip, .c108-whatsapp { display: none !important; }
+
+/* v10.2: HIDE REACT RESERVATION POPUP ("Keep direct booking in view")
+   CSS-based — pure rule attribute selector, neuvolnitelne i pri React rerender.
+   React popup ma class: "fixed bottom-5 right-5 z-40 hidden w-[280px] lg:block xl:w-[300px]"
+   Nasleduje matching kombinace tříd ↓ */
+div[class*="fixed"][class*="bottom-5"][class*="right-5"][class*="lg:block"] {
+  display: none !important;
+}
+/* Belt-and-suspenders: data attribute set our JS killer */
+[data-c108-hidden="1"] { display: none !important; }
+.c108-hide-react-popup { display: none !important; }
+
+/* v10: 10/10 RATING accent v pull quote */
+.c108-rating10 {
+  color: var(--c108-sand-gold);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+/* v13: EDITORIAL OUR STORY - HOTFIX + proper sticky spec
+   Per Tomáš: sticky image left, 3 reveal blocks right, ken burns, mobile stack
+   ZADNE margin/transform/width 100vw triks - pure container. */
+
+/* Wrapper má near-black bg ale BEZ rozbíjení layoutu */
+.c108-editorial-wrap {
+  background: #0e0c0a;
+  width: 100%;
+  padding: 0;
+}
+html.light .c108-editorial-wrap {
+  background: var(--c108-coral-cream);
+}
+
+/* Inner editorial grid - 50/50, sticky obrázek vlevo */
+.c108-pinned-editorial {
+  background: transparent;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 8vw, 100px);
+  align-items: start;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: clamp(80px, 10vw, 140px) clamp(24px, 6vw, 80px);
+  /* DULEZITE: zadny overflow! Sticky se rozbije pod overflow:hidden */
+  overflow: visible;
+  position: relative;
+  left: auto;
+  transform: none;
+  width: auto;
+}
+.c108-pinned-editorial .c108-pinned-media {
+  position: sticky;
+  top: 100px;
+  height: 70vh;
+  aspect-ratio: auto;
+  overflow: hidden;
+  border-radius: 4px;
+  background: #2a2520;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.45);
+}
+.c108-pinned-editorial .c108-pinned-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  /* v13: KEN BURNS animation (24s loop, alternate) per Tomas spec */
+  animation: c108-kenBurns 24s ease-in-out infinite alternate;
+  transform: none;
+  transition: none;
+}
+@keyframes c108-kenBurns {
+  0%   { transform: scale(1) translate(0, 0); }
+  100% { transform: scale(1.08) translate(-1%, -1.5%); }
+}
+
+.c108-pinned-editorial .c108-pinned-text {
+  display: flex;
+  flex-direction: column;
+  gap: 120px;
+  padding-top: 0;
+}
+.c108-pinned-editorial .c108-pinned-block {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 1.2s cubic-bezier(0.16, 1, 0.30, 1),
+    transform 1.2s cubic-bezier(0.16, 1, 0.30, 1);
+}
+.c108-pinned-editorial .c108-pinned-block.in-view,
+.c108-pinned-editorial .c108-pinned-block.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.c108-pinned-editorial .c108-pinned-eyebrow {
+  display: block;
+  font-family: "Manrope", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(190, 168, 131, 0.85);
+  margin-bottom: 16px;
+}
+.c108-pinned-editorial .c108-pinned-eyebrow::before { display: none; }
+
+.c108-pinned-editorial .c108-pinned-h {
+  font-family: "Cormorant Garamond", "EB Garamond", serif;
+  font-weight: 400;
+  font-size: clamp(36px, 4vw, 56px);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--c108-coral-cream);
+  -webkit-text-fill-color: currentColor;
+  margin: 16px 0 28px 0;
+}
+html.light .c108-pinned-editorial .c108-pinned-h {
+  color: var(--c108-palm-green);
+}
+
+.c108-pinned-editorial .c108-pinned-block h3 {
+  font-family: "Cormorant Garamond", "EB Garamond", serif;
+  font-weight: 400;
+  font-size: clamp(28px, 3vw, 42px);
+  line-height: 1.1;
+  color: var(--c108-coral-cream);
+  margin: 16px 0 28px 0;
+}
+html.light .c108-pinned-editorial .c108-pinned-block h3 {
+  color: var(--c108-palm-green);
+}
+.c108-pinned-editorial .c108-pinned-block p {
+  font-family: "Cormorant Garamond", "EB Garamond", serif;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 1.7;
+  color: rgba(251, 244, 234, 0.78);
+  max-width: 540px;
+  margin: 0;
+}
+html.light .c108-pinned-editorial .c108-pinned-block p {
+  color: rgba(28, 65, 71, 0.78);
+}
+
+.c108-pinned-editorial .c108-pinned-divider { display: none; }
+
+/* Mobile: sticky vypnuto, image nahore, text pod */
+@media (max-width: 980px) {
+  .c108-pinned-editorial {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 60px 24px;
+  }
+  .c108-pinned-editorial .c108-pinned-media {
+    position: relative;
+    top: 0;
+    height: 60vh;
+  }
+  .c108-pinned-editorial .c108-pinned-text { gap: 60px; }
+}
+
+/* A11y - reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .c108-pinned-editorial .c108-pinned-media img { animation: none; }
+  .c108-pinned-editorial .c108-pinned-block { opacity: 1; transform: none; transition: none; }
+}
+
+/* v13: LIGHT THEME readability — DECENT specificity (no body!important) */
+html.light .c108-pull-quote blockquote { color: var(--c108-palm-green); }
+html.light .c108-pull-quote .source { color: rgba(28, 65, 71, 0.7); }
+html.light .c108-stat-heading { color: var(--c108-bronze-palm); }
+html.light .c108-stat-heading::before { background: var(--c108-bronze-palm); }
+html.light .c108-sticky-booking { color: var(--c108-coral-cream); }
+html.light .c108-sticky-booking .arrow { background: var(--c108-sand-gold); color: var(--c108-palm-green); }
+
+/* v11: HIDE "WHAT GUESTS NOTICE FIRST" sekci (hero side panel s ticky bullets)
+   React class: typically má h2/h3 obsahující tento text */
+[data-c108-hide-section="what-guests"] { display: none !important; }
+
+/* v11: STAT CARDS (8.9/10, 11 units, 50 m) — fade-in load animace + heading */
+.c108-stat-heading {
+  font-family: "Manrope", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  color: var(--c108-sand-gold);
+  margin: 0 0 18px 0;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.7s var(--c108-easing), transform 0.7s var(--c108-easing);
+}
+.c108-stat-heading::before {
+  content: "";
+  width: 28px; height: 1px;
+  background: var(--c108-sand-gold);
+}
+.c108-stat-heading.in-view { opacity: 1; transform: translateY(0); }
+[data-c108-stat-card] {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s var(--c108-easing), transform 0.8s var(--c108-easing);
+}
+[data-c108-stat-card].in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+[data-c108-stat-card][data-delay="0"] { transition-delay: 0s; }
+[data-c108-stat-card][data-delay="1"] { transition-delay: 0.15s; }
+[data-c108-stat-card][data-delay="2"] { transition-delay: 0.30s; }
+
+/* v11: SHIMMER na Reservation BUTTON na hover (Tomáš PDF) */
+@media (min-width: 901px) {
+  a.c108-shimmer-btn, button.c108-shimmer-btn {
+    background-image: linear-gradient(
+      110deg,
+      currentColor 0%, currentColor 35%,
+      var(--c108-sand-gold) 50%,
+      currentColor 65%, currentColor 100%
+    ) !important;
+    background-size: 250% 100% !important;
+    background-position: 100% 50% !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: currentColor !important;
+    transition: background-position .9s var(--c108-easing), -webkit-text-fill-color .3s !important;
+  }
+  a.c108-shimmer-btn:hover, button.c108-shimmer-btn:hover {
+    background-position: 0% 50% !important;
+    -webkit-text-fill-color: transparent !important;
+  }
+}
+
+/* =========================
+   v9.8: HERO SCROLL CUE (animated chevron at bottom of hero)
+   ========================= */
+.c108-scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: 32px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--c108-coral-cream);
+  font-family: "Manrope", sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0.85;
+  transition: opacity 0.4s ease;
+}
+.c108-scroll-cue.is-hidden { opacity: 0; }
+.c108-scroll-cue .line {
+  width: 1px;
+  height: 36px;
+  background: linear-gradient(to bottom, transparent, var(--c108-sand-gold));
+  position: relative;
+  overflow: hidden;
+}
+.c108-scroll-cue .line::after {
+  content: "";
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: var(--c108-sand-gold);
+  animation: c108-scrollCueLine 2.2s ease-in-out infinite;
+}
+@keyframes c108-scrollCueLine {
+  0%   { top: -50%; }
+  100% { top: 150%; }
+}
+
+/* =========================
+   v9.8: WAVE SVG SECTION DIVIDER (between sections)
+   ========================= */
+.c108-wave-divider {
+  display: block;
+  width: 100%;
+  height: 60px;
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+}
+.c108-wave-divider svg {
+  width: 100%; height: 100%;
+  display: block;
+}
+.c108-wave-divider path {
+  fill: rgba(190, 168, 131, 0.08);
+  stroke: rgba(190, 168, 131, 0.35);
+  stroke-width: 1;
+}
+html.light .c108-wave-divider path {
+  fill: rgba(190, 168, 131, 0.12);
+  stroke: rgba(28, 65, 71, 0.25);
+}
+
+/* =========================
+   v9.8: ACCESSIBILITY - focus-visible rings + smooth scroll
+   ========================= */
+html { scroll-behavior: smooth; }
+*:focus-visible {
+  outline: 2px solid var(--c108-sand-gold) !important;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.c108-skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 8px;
+  padding: 10px 16px;
+  background: var(--c108-deep-reef, #0F2A2E);
+  color: var(--c108-coral-cream);
+  font-family: "Manrope", sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  border: 1px solid var(--c108-sand-gold);
+  border-radius: 4px;
+  z-index: 100000;
+  text-decoration: none;
+}
+.c108-skip-link:focus {
+  left: 12px;
+}
+
+/* =========================
+   PREFERS REDUCED MOTION
+   ========================= */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    transition-duration: .001ms !important;
+  }
+  html { scroll-behavior: auto; }
+}
